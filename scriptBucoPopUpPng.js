@@ -87,12 +87,78 @@
  
       bannerDiv.style.position = 'fixed';
       bannerDiv.style.zIndex = '1000';
-    //   bannerDiv.style.width = '300px';
       bannerDiv.style.width = '200px';
       bannerDiv.style.maxHeight = '100vh'; 
       bannerDiv.style.overflow = 'hidden'; 
       bannerDiv.style.right = '20px'; 
-      bannerDiv.style.top = '20px'; 
+      bannerDiv.style.top = '1px'; 
+      
+      document.body.appendChild(bannerDiv);
+  });
+</script>
+
+<style>
+  #discount-banner {
+    box-shadow: none; 
+    border-radius: 0;  
+    background-color: transparent; 
+    padding: 0;
+  }
+
+
+  @media (max-width: 1024px) {
+    #discount-banner {
+      display: none;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    #discount-banner {
+      display: none;
+    }
+  }
+
+
+  @media (max-width: 480px) {
+    #discount-banner {
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+// Чтобы работало с мобилкой,
+//  но ломает добавление товаров на мобильных устройствах из-за всплывания корзины с правой стороны
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const pngBannerSrc = 'https://i.postimg.cc/d3YvmBHp/image-2024-11-27-19-19-09.png';
+      
+      const bannerDiv = document.createElement('div');
+      bannerDiv.id = 'discount-banner';
+      
+      const imgElement = document.createElement('img');
+      imgElement.src = pngBannerSrc; 
+      imgElement.alt = 'Скидка на Чёрную Пятницу'; 
+      imgElement.style.width = '100%'; 
+      imgElement.style.height = 'auto'; 
+      
+      bannerDiv.appendChild(imgElement);
+      
+ 
+      bannerDiv.style.position = 'fixed';
+      bannerDiv.style.zIndex = '1000';
+      bannerDiv.style.width = '150px';
+      bannerDiv.style.maxHeight = '100vh'; 
+      bannerDiv.style.overflow = 'hidden'; 
+      bannerDiv.style.right = '15px'; 
+      bannerDiv.style.top = '110px'; 
       
       document.body.appendChild(bannerDiv);
   });
@@ -108,27 +174,29 @@
 
   @media (max-width: 768px) {
     #discount-banner {
-      width: 250px;
+      width: 100vw; /* Уменьшаем ширину баннера в 2 раза */
+      height: 100vh; /* Увеличиваем высоту, чтобы изображение было видно */
       max-height: calc(100vh - 20px); 
-      right: 10px; 
-      top: 10px; 
+      right: 15px; 
+      top: 120px; /* Опускаем баннер ниже */
     }
     #discount-banner img {
       width: 100%;
-      height: auto;
+      height: 100%; /* Обеспечиваем, чтобы изображение подстраивалось по высоте */
     }
   }
 
   @media (max-width: 480px) {
     #discount-banner {
-      width: 200px;
+      width: 100vw; /* Уменьшаем ширину баннера в 2 раза */
+      height: 100vh; /* Увеличиваем высоту для мобильных устройств */
       max-height: calc(100vh - 10px);
-      right: 10px; 
-      top: 10px; 
+      right: 15px; 
+      top: 120px; /* Опускаем баннер еще ниже */
     }
     #discount-banner img {
       width: 100%;
-      height: auto;
+      height: 100%; /* Обеспечиваем, чтобы изображение подстраивалось по высоте */
     }
   }
 </style>
