@@ -10,7 +10,7 @@
         options
       );
   
-      const svgFlake = `
+      const svgFlake =`
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32">
             <path fill="#75c4fe" style="fill: var(--color1, #75c4fe)" d="M27.77 19.989c0.052 0.271-0.125 0.533-0.396 0.586l-2.254 0.435 0.54 2.015c0.071 0.267-0.087 0.541-0.354 0.612s-0.541-0.087-0.612-0.354l-0.679-2.534c-0.036-0.134-0.015-0.277 0.059-0.395s0.193-0.199 0.329-0.226l2.781-0.536c0.271-0.052 0.533 0.125 0.586 0.396z"/>
             <path fill="#75c4fe" style="fill: var(--color1, #75c4fe)" d="M7.804 10.573c0.065 0.243-0.060 0.496-0.292 0.592l-2.163 0.893c-0.255 0.105-0.548-0.016-0.653-0.271s0.016-0.548 0.271-0.653l1.757-0.726-0.513-1.915c-0.071-0.267 0.087-0.541 0.354-0.612s0.541 0.087 0.612 0.354l0.627 2.339z"/>
@@ -32,17 +32,23 @@
                        
             </svg>`;
   
-      const windowWidth = $(window).width();
-      const windowHeight = $(window).height(); // Видимая область окна
-  
-      // Получаем высоту футера
+      let windowWidth = $(window).width();
+      let windowHeight = $(window).height();
       const footer = $("footer");
-      let footerTop = footer.offset() ? footer.offset().top : $(document).height();
-      let footerBottom = footerTop + footer.outerHeight(); // Нижняя граница футера
   
-      // Проверяем, если ширина экрана больше 768px (десктоп)
-      if (windowWidth > 768) {
-        // Запускаем анимацию снежинок
+      const updateFooterBounds = () => {
+        const footerTop = footer.offset() ? footer.offset().top : $(document).height();
+        return footerTop + footer.outerHeight();
+      };
+      let footerBottom = updateFooterBounds();
+  
+      const flakes = [];
+  
+      const createFlakes = () => {
+        // Вместо this.empty() создаем контейнер для снежинок
+        this.find(".snowflakes").remove(); // Удаляем предыдущие снежинки
+        const snowflakesContainer = $("<div class='snowflakes'></div>").appendTo(this);
+  
         for (let i = 0; i < settings.flakeCount; i++) {
           const x = Math.random() * windowWidth;
           const y = Math.random() * windowHeight;
@@ -58,43 +64,46 @@
               height: `${size}px`,
               pointerEvents: "none",
               borderRadius: `${settings.round}px`,
-              zIndex: "9999",              
+              zIndex: "9999",
               willChange: "transform",
             })
-            .appendTo(this);
+            .appendTo(snowflakesContainer);
   
+          flakes.push({ flake, size, speed, step: Math.random() * Math.PI * 2 });
           animateFlake(flake, size, speed);
         }
+      };
   
-    
-    function animateFlake(flake, size, speed, step = 0) {
+      const animateFlake = (flake, size, speed, step = 0) => {
         let top = parseFloat(flake.css("top"));
-        const left = parseFloat(flake.css("left"));
         const angleSpeed = Math.random() * 0.05 + 0.01;
-
+  
         const animate = () => {
           top += speed;
           const oscillation = Math.sin(step) * 5;
+  
           flake.css({
             transform: `translate(${oscillation}px, ${top}px)`,
           });
           step += angleSpeed;
-
-          if (top > footerBottom) {
-            top = -size;
-            flake.css("top", `${top}px`);
-          }
-
-          if (top <= footerBottom + size) {
-            requestAnimationFrame(animate);
-          }
+  
+          if (top > windowHeight) top = -size;
+          if (top < footerBottom) requestAnimationFrame(animate);
         };
-
+  
         animate();
-      }
-    }
-  };
-    // Глобальная версия плагина
+      };
+  
+      createFlakes();
+  
+      $(window).on("resize", function () {
+        windowWidth = $(window).width();
+        windowHeight = $(window).height();
+        footerBottom = updateFooterBounds();
+        createFlakes(); // Пересоздаем снежинки
+      });
+    };
+  
     $.snowfall = function (element, options) {
       $(element).each(function () {
         $(this).snowfall(options);

@@ -32,17 +32,24 @@
                        
             </svg>`;
   
-      const windowWidth = $(window).width();
-      const windowHeight = $(window).height(); // Видимая область окна
-  
-      // Получаем высоту футера
+      let windowWidth = $(window).width();
+      let windowHeight = $(window).height();
       const footer = $("footer");
-      let footerTop = footer.offset() ? footer.offset().top : $(document).height();
-      let footerBottom = footerTop + footer.outerHeight(); // Нижняя граница футера
   
-      // Проверяем, если ширина экрана больше 768px (десктоп)
+      const updateFooterBounds = () => {
+        const footerTop = footer.offset() ? footer.offset().top : $(document).height();
+        return footerTop + footer.outerHeight();
+      };
+      let footerBottom = updateFooterBounds();
+  
+      // Пересчитываем размеры при изменении окна
+      $(window).on("resize", function () {
+        windowWidth = $(window).width();
+        windowHeight = $(window).height();
+        footerBottom = updateFooterBounds();
+      });
+  
       if (windowWidth > 768) {
-        // Запускаем анимацию снежинок
         for (let i = 0; i < settings.flakeCount; i++) {
           const x = Math.random() * windowWidth;
           const y = Math.random() * windowHeight;
@@ -58,43 +65,41 @@
               height: `${size}px`,
               pointerEvents: "none",
               borderRadius: `${settings.round}px`,
-              zIndex: "9999",              
+              zIndex: "9999",
               willChange: "transform",
             })
             .appendTo(this);
   
           animateFlake(flake, size, speed);
         }
+      }
   
-    
-    function animateFlake(flake, size, speed, step = 0) {
+      function animateFlake(flake, size, speed, step = 0) {
         let top = parseFloat(flake.css("top"));
-        const left = parseFloat(flake.css("left"));
         const angleSpeed = Math.random() * 0.05 + 0.01;
-
+  
         const animate = () => {
           top += speed;
           const oscillation = Math.sin(step) * 5;
+          
           flake.css({
             transform: `translate(${oscillation}px, ${top}px)`,
           });
           step += angleSpeed;
-
-          if (top > footerBottom) {
+  
+          if (top > windowHeight) {
             top = -size;
-            flake.css("top", `${top}px`);
           }
-
-          if (top <= footerBottom + size) {
+  
+          if (top < footerBottom) {
             requestAnimationFrame(animate);
           }
         };
-
+  
         animate();
       }
-    }
-  };
-    // Глобальная версия плагина
+    };
+  
     $.snowfall = function (element, options) {
       $(element).each(function () {
         $(this).snowfall(options);

@@ -143,7 +143,7 @@ Date.now ||
       }
       var a = [],
         o = {
-          flakeCount: 35,
+          flakeCount: 100,
           flakeColor: "#00bfff",
           flakePosition: "absolute",
           flakeIndex: 999999,

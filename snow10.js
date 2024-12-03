@@ -1,9 +1,9 @@
 (function ($) { 
     $.fn.snowfall = function (options) {
         const settings = $.extend({
-            flakeCount: 200,
-            minSize: 5,
-            maxSize: 20,
+            flakeCount: 120,
+            minSize: 7,
+            maxSize: 15,
             round: 4,
         }, options);
 
@@ -51,6 +51,7 @@
                 height: `${size}px`,
                 pointerEvents: 'none',
                 borderRadius: `${settings.round}px`,
+                zIndex: 9999,
             }).appendTo('body');
 
             animateFlake(flake, size, speed);
