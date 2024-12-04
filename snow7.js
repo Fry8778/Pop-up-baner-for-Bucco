@@ -1,7 +1,6 @@
-(function ($) {
+(function ($) { 
     $.fn.snowfall = function (options) {
-      const settings = $.extend(
-        {
+      const settings = $.extend({
           flakeCount: 120,
           minSize: 7,
           maxSize: 15,
@@ -33,28 +32,18 @@
             </svg>`;
   
       const windowWidth = $(window).width();
-      const windowHeight = $(window).height(); // Видимая область окна
+      const windowHeight = $(window).height();
   
-      // Получаем высоту футера
-      const footer = $("footer");
-      let footerTop = footer.offset() ? footer.offset().top : $(document).height();
-      let footerBottom = footerTop + footer.outerHeight(); // Нижняя граница футера
-  
-      // Проверяем, если ширина экрана больше 768px (десктоп)
       if (windowWidth > 768) {
-        // Запускаем анимацию снежинок
         for (let i = 0; i < settings.flakeCount; i++) {
           const x = Math.random() * windowWidth;
-          const y = Math.random() * windowHeight;
-          const size =
-            Math.random() * (settings.maxSize - settings.minSize) +
-            settings.minSize;
+          const size = Math.random() * (settings.maxSize - settings.minSize) + settings.minSize;
           const speed = Math.random() * 2 + 1;
   
           const flake = $(svgFlake)
             .css({
               position: "absolute",
-              top: `${y}px`,
+              top: `-${size}px`,
               left: `${x}px`,
               width: `${size}px`,
               height: `${size}px`,
@@ -68,80 +57,35 @@
         }
   
         function animateFlake(flake, size, speed, step = 0) {
-          let animationId;
+          let top = -size;
+          const oscillationFactor = Math.random() * 0.05 + 0.01;
+  
           const animate = () => {
-            let top = parseFloat(flake.css("top")) + speed;
-            const left = parseFloat(flake.css("left")) + Math.sin(step) * 2;
-            flake.css({ top: `${top}px`, left: `${left}px` });
-            step += 0.1;
+            top += speed;
+            const oscillation = Math.sin(step) * 5;
+            flake.css({
+              transform: `translate(${oscillation}px, ${top}px)`,
+            });
+            step += oscillationFactor;
   
-            // Если снежинка достигла нижней границы футера
-            if (top > footerBottom) {
-              top = -size; // Снежинка снова появляется сверху
-              flake.css("top", `${top}px`);
+            // Сброс позиции снежинки
+            if (top > windowHeight) {
+              top = -size;
             }
-  
-            // Если снежинка не достигла футера, продолжаем анимацию
-            if (top <= footerBottom + size) {
-              animationId = requestAnimationFrame(animate);
-            } else {
-              // После того как снежинка полностью пролетела футер, останавливаем анимацию
-              cancelAnimationFrame(animationId);
-            }
+            requestAnimationFrame(animate);
           };
   
-          animate(); // Запускаем анимацию
-  
-          // Очищаем анимацию при удалении элемента
-          flake.on("remove", () => {
-            cancelAnimationFrame(animationId);
-          });
+          animate();
         }
-  
-        // Обработчик для ресайза окна
-        $(window).on("resize", () => {
-          const newWindowWidth = $(window).width();
-          // Если ширина экрана больше 768px, то продолжаем анимацию
-          if (newWindowWidth > 768) {
-            footerTop = footer.offset() ? footer.offset().top : $(document).height();
-            footerBottom = footerTop + footer.outerHeight();
-  
-            this.empty(); // Очищаем старые снежинки
-            for (let i = 0; i < settings.flakeCount; i++) {
-              const x = Math.random() * windowWidth;
-              const y = Math.random() * windowHeight;
-              const size =
-                Math.random() * (settings.maxSize - settings.minSize) +
-                settings.minSize;
-              const speed = Math.random() * 2 + 1;
-  
-              const flake = $(svgFlake)
-                .css({
-                  position: "absolute",
-                  top: `${y}px`,
-                  left: `${x}px`,
-                  width: `${size}px`,
-                  height: `${size}px`,
-                  pointerEvents: "none",
-                  borderRadius: `${settings.round}px`,
-                })
-                .appendTo(this);
-  
-              animateFlake(flake, size, speed);
-            }
-          } else {
-            // Если экран меньше или равен 768px, останавливаем анимацию снежинок
-            this.empty();
-          }
-        });
       }
     };
-  
+
+    
     // Глобальная версия плагина
-    $.snowfall = function (element, options) {
-      $(element).each(function () {
-        $(this).snowfall(options);
-      });
-    };
+    $.snowfall = function(element, options) {
+        $(element).each(function() {
+          $(this).snowfall(options);
+        });
+      };
   })(jQuery);
   

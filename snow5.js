@@ -1,11 +1,14 @@
-(function($) {
-    $.fn.snowfall = function(options) {
-      const settings = $.extend({
-        flakeCount: 200,
-        minSize: 5,
-        maxSize: 20,
-        round: 4
-      }, options);
+(function ($) {
+    $.fn.snowfall = function (options) {
+      const settings = $.extend(
+        {
+          flakeCount: 120,
+          minSize: 7,
+          maxSize: 15,
+          round: 4,
+        },
+        options
+      );
   
       const svgFlake = `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32">
@@ -30,53 +33,113 @@
             </svg>`;
   
       const windowWidth = $(window).width();
-      const windowHeight = $(window).height();
-      // const windowHeight = $(document).height();
+      const windowHeight = $(window).height(); // Видимая область окна
   
-      for (let i = 0; i < settings.flakeCount; i++) {
-        const x = Math.random() * windowWidth;
-        const y = Math.random() * windowHeight;
-        // const y = Math.random() * $(document).height();
-        const size = Math.random() * (settings.maxSize - settings.minSize) + settings.minSize;
-        const speed = Math.random() * 2 + 1;
+      // Получаем высоту футера
+      const footer = $("footer");
+      let footerTop = footer.offset() ? footer.offset().top : $(document).height();
+      let footerBottom = footerTop + footer.outerHeight(); // Нижняя граница футера
   
-        const flake = $(svgFlake).css({
-          position: 'absolute',
-          top: `${y}px`,
-          left: `${x}px`,
-          width: `${size}px`,
-          height: `${size}px`,
-          pointerEvents: 'none',
-          borderRadius: `${settings.round}px`
-        }).appendTo(this);
+      // Проверяем, если ширина экрана больше 768px (десктоп)
+      if (windowWidth > 768) {
+        // Запускаем анимацию снежинок
+        for (let i = 0; i < settings.flakeCount; i++) {
+          const x = Math.random() * windowWidth;
+          const y = Math.random() * windowHeight;
+          const size =
+            Math.random() * (settings.maxSize - settings.minSize) +
+            settings.minSize;
+          const speed = Math.random() * 2 + 1;
   
-        animateFlake(flake, size, speed);
-      }
+          const flake = $(svgFlake)
+            .css({
+              position: "absolute",
+              top: `${y}px`,
+              left: `${x}px`,
+              width: `${size}px`,
+              height: `${size}px`,
+              pointerEvents: "none",
+              borderRadius: `${settings.round}px`,
+              zIndex: 9999,
+            })
+            .appendTo(this);
   
-      function animateFlake(flake, size, speed) {
-        let step = 0;
-        const intervalId = setInterval(() => {
-          let top = parseFloat(flake.css('top')) + speed;
-          const left = parseFloat(flake.css('left')) + Math.sin(step) * 2;
-          flake.css({ top: `${top}px`, left: `${left}px` });
-          step += 0.1;
+          animateFlake(flake, size, speed);
+        }
   
-          if (top > windowHeight) {
-            // if (top > $(document).height()) {
-            top = -size;
-            flake.css('top', `${top}px`);
+        function animateFlake(flake, size, speed, step = 0) {
+          let animationId;
+          const animate = () => {
+            let top = parseFloat(flake.css("top")) + speed;
+            const left = parseFloat(flake.css("left")) + Math.sin(step) * 2;
+            flake.css({ top: `${top}px`, left: `${left}px` });
+            step += 0.1;
+  
+            // Если снежинка достигла нижней границы футера
+            if (top > footerBottom) {
+              top = -size; // Снежинка снова появляется сверху
+              flake.css("top", `${top}px`);
+            }
+  
+            // Если снежинка не достигла футера, продолжаем анимацию
+            if (top <= footerBottom + size) {
+              animationId = requestAnimationFrame(animate);
+            } else {
+              // После того как снежинка полностью пролетела футер, останавливаем анимацию
+              cancelAnimationFrame(animationId);
+            }
+          };
+  
+          animate(); // Запускаем анимацию
+  
+          // Очищаем анимацию при удалении элемента
+          flake.on("remove", () => {
+            cancelAnimationFrame(animationId);
+          });
+        }
+  
+        // Обработчик для ресайза окна
+        $(window).on("resize", () => {
+          const newWindowWidth = $(window).width();
+          // Если ширина экрана больше 768px, то продолжаем анимацию
+          if (newWindowWidth > 768) {
+            footerTop = footer.offset() ? footer.offset().top : $(document).height();
+            footerBottom = footerTop + footer.outerHeight();
+  
+            this.empty(); // Очищаем старые снежинки
+            for (let i = 0; i < settings.flakeCount; i++) {
+              const x = Math.random() * windowWidth;
+              const y = Math.random() * windowHeight;
+              const size =
+                Math.random() * (settings.maxSize - settings.minSize) +
+                settings.minSize;
+              const speed = Math.random() * 2 + 1;
+  
+              const flake = $(svgFlake)
+                .css({
+                  position: "absolute",
+                  top: `${y}px`,
+                  left: `${x}px`,
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  pointerEvents: "none",
+                  borderRadius: `${settings.round}px`,
+                })
+                .appendTo(this);
+  
+              animateFlake(flake, size, speed);
+            }
+          } else {
+            // Если экран меньше или равен 768px, останавливаем анимацию снежинок
+            this.empty();
           }
-        }, 30);
-  
-        flake.on('remove', () => clearInterval(intervalId));
+        });
       }
-  
-      $(window).on('resize', () => this.empty());
     };
   
     // Глобальная версия плагина
-    $.snowfall = function(element, options) {
-      $(element).each(function() {
+    $.snowfall = function (element, options) {
+      $(element).each(function () {
         $(this).snowfall(options);
       });
     };
