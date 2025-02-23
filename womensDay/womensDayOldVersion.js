@@ -3,8 +3,8 @@
     // Настройки по умолчанию
     const settings = $.extend(
       {
-        tulipCount: 20,
-        minSize: 15,
+        tulipCount: 16,
+        minSize: 20,
         maxSize: 25,      
       },
       options
