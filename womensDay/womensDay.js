@@ -3,7 +3,7 @@
       // Налаштування за замовчуванням
       const settings = $.extend(
         {
-          tulipCount: 16,
+          tulipCount: 12,
           minSize: 20,
           maxSize: 25,
          
@@ -14,8 +14,8 @@
       // Адаптація для мобільних пристроїв
       if ($(window).width() <= 768) {
         settings.tulipCount = Math.round(settings.tulipCount * 0.5);
-        settings.minSize = 4;
-        settings.maxSize = 10;
+        settings.minSize = 7;
+        settings.maxSize = 12;
       }
   
       // SVG для повільних сердечок

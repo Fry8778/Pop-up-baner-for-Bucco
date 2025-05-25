@@ -1,4 +1,14 @@
-{/* <script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <script>
   document.addEventListener('DOMContentLoaded', function() { // Ожидает загрузки DOM перед выполнением кода
       const pngBannerSrc = 'https://i.postimg.cc/cCBmrxt2/Pngtree-black-friday-sale-in-red-5581992.png'; // URL изображения баннера
       
@@ -25,16 +35,15 @@
       document.body.appendChild(bannerDiv); // Добавляет баннер в конец <body>
   });
 </script>
-
+ 
 <style>
-  #discount-banner {
+ #discount-banner {
     box-shadow: none; /* Отключает тень вокруг баннера */
     border-radius: 0; /* Убирает скругление углов */
     background-color: transparent; /* Устанавливает прозрачный фон */
     padding: 0; /* Убирает внутренние отступы */
-  }
-
-  @media (max-width: 768px) { /* Стили для планшетов и небольших экранов */
+    }
+@media (max-width: 768px) { /* Стили для планшетов и небольших экранов */
     #discount-banner {
       width: 250px; /* Уменьшает ширину баннера */
       max-height: calc(100vh - 20px); /* Ограничивает высоту экрана с учетом отступов */
@@ -59,7 +68,7 @@
       height: auto; /* Сохраняет пропорции изображения */
     }
   }
-</style> */}
+</style> -->
 
 
 
@@ -69,63 +78,65 @@
 
 
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
       const pngBannerSrc = 'https://i.postimg.cc/d3YvmBHp/image-2024-11-27-19-19-09.png';
-      
+
       const bannerDiv = document.createElement('div');
       bannerDiv.id = 'discount-banner';
-      
+
       const imgElement = document.createElement('img');
-      imgElement.src = pngBannerSrc; 
-      imgElement.alt = 'Скидка на Чёрную Пятницу'; 
-      imgElement.style.width = '100%'; 
-      imgElement.style.height = 'auto'; 
-      
+      imgElement.src = pngBannerSrc;
+      imgElement.alt = 'Скидка на Чёрную Пятницу';
+      imgElement.style.width = '100%';
+      imgElement.style.height = 'auto';
+
       bannerDiv.appendChild(imgElement);
-      
- 
+
+
       bannerDiv.style.position = 'fixed';
       bannerDiv.style.zIndex = '1000';
       bannerDiv.style.width = '200px';
-      bannerDiv.style.maxHeight = '100vh'; 
-      bannerDiv.style.overflow = 'hidden'; 
-      bannerDiv.style.right = '20px'; 
-      bannerDiv.style.top = '1px'; 
-      
+      bannerDiv.style.maxHeight = '100vh';
+      bannerDiv.style.overflow = 'hidden';
+      bannerDiv.style.right = '20px';
+      bannerDiv.style.top = '1px';
+
       document.body.appendChild(bannerDiv);
-  });
-</script>
+    });
+  </script>
 
-<style>
-  #discount-banner {
-    box-shadow: none; 
-    border-radius: 0;  
-    background-color: transparent; 
-    padding: 0;
-  }
-
-
-  @media (max-width: 1024px) {
+  <style>
     #discount-banner {
-      display: none;
+      box-shadow: none;
+      border-radius: 0;
+      background-color: transparent;
+      padding: 0;
     }
-  }
 
 
-  @media (max-width: 768px) {
-    #discount-banner {
-      display: none;
+    @media (max-width: 1024px) {
+      #discount-banner {
+        display: none;
+      }
     }
-  }
 
 
-  @media (max-width: 480px) {
-    #discount-banner {
-      display: none;
+    @media (max-width: 768px) {
+      #discount-banner {
+        display: none;
+      }
     }
-  }
-</style>
+
+
+    @media (max-width: 480px) {
+      #discount-banner {
+        display: none;
+      }
+    }
+  </style>
 
 
 
@@ -134,69 +145,82 @@
 
 
 
-// Чтобы работало с мобилкой,
-//  но ломает добавление товаров на мобильных устройствах из-за всплывания корзины с правой стороны
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
+  <!-- // Чтобы работало с мобилкой,
+//  но ломает добавление товаров на мобильных устройствах из-за всплывания корзины с правой стороны -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
       const pngBannerSrc = 'https://i.postimg.cc/d3YvmBHp/image-2024-11-27-19-19-09.png';
-      
+
       const bannerDiv = document.createElement('div');
       bannerDiv.id = 'discount-banner';
-      
+
       const imgElement = document.createElement('img');
-      imgElement.src = pngBannerSrc; 
-      imgElement.alt = 'Скидка на Чёрную Пятницу'; 
-      imgElement.style.width = '100%'; 
-      imgElement.style.height = 'auto'; 
-      
+      imgElement.src = pngBannerSrc;
+      imgElement.alt = 'Скидка на Чёрную Пятницу';
+      imgElement.style.width = '100%';
+      imgElement.style.height = 'auto';
+
       bannerDiv.appendChild(imgElement);
-      
- 
+
+
       bannerDiv.style.position = 'fixed';
       bannerDiv.style.zIndex = '1000';
       bannerDiv.style.width = '150px';
-      bannerDiv.style.maxHeight = '100vh'; 
-      bannerDiv.style.overflow = 'hidden'; 
-      bannerDiv.style.right = '15px'; 
-      bannerDiv.style.top = '110px'; 
-      
+      bannerDiv.style.maxHeight = '100vh';
+      bannerDiv.style.overflow = 'hidden';
+      bannerDiv.style.right = '15px';
+      bannerDiv.style.top = '110px';
+
       document.body.appendChild(bannerDiv);
-  });
-</script>
+    });
+  </script>
 
-<style>
-  #discount-banner {
-    box-shadow: none; 
-    border-radius: 0;  
-    background-color: transparent; 
-    padding: 0;
-  }
-
-  @media (max-width: 768px) {
+  <style>
     #discount-banner {
-      width: 100vw; /* Уменьшаем ширину баннера в 2 раза */
-      height: 100vh; /* Увеличиваем высоту, чтобы изображение было видно */
-      max-height: calc(100vh - 20px); 
-      right: 15px; 
-      top: 120px; /* Опускаем баннер ниже */
+      box-shadow: none;
+      border-radius: 0;
+      background-color: transparent;
+      padding: 0;
     }
-    #discount-banner img {
-      width: 100%;
-      height: 100%; /* Обеспечиваем, чтобы изображение подстраивалось по высоте */
-    }
-  }
 
-  @media (max-width: 480px) {
-    #discount-banner {
-      width: 100vw; /* Уменьшаем ширину баннера в 2 раза */
-      height: 100vh; /* Увеличиваем высоту для мобильных устройств */
-      max-height: calc(100vh - 10px);
-      right: 15px; 
-      top: 120px; /* Опускаем баннер еще ниже */
+    @media (max-width: 768px) {
+      #discount-banner {
+        width: 100vw;
+        /* Уменьшаем ширину баннера в 2 раза */
+        height: 100vh;
+        /* Увеличиваем высоту, чтобы изображение было видно */
+        max-height: calc(100vh - 20px);
+        right: 15px;
+        top: 120px;
+        /* Опускаем баннер ниже */
+      }
+
+      #discount-banner img {
+        width: 100%;
+        height: 100%;
+        /* Обеспечиваем, чтобы изображение подстраивалось по высоте */
+      }
     }
-    #discount-banner img {
-      width: 100%;
-      height: 100%; /* Обеспечиваем, чтобы изображение подстраивалось по высоте */
+
+    @media (max-width: 480px) {
+      #discount-banner {
+        width: 100vw;
+        /* Уменьшаем ширину баннера в 2 раза */
+        height: 100vh;
+        /* Увеличиваем высоту для мобильных устройств */
+        max-height: calc(100vh - 10px);
+        right: 15px;
+        top: 120px;
+        /* Опускаем баннер еще ниже */
+      }
+
+      #discount-banner img {
+        width: 100%;
+        height: 100%;
+        /* Обеспечиваем, чтобы изображение подстраивалось по высоте */
+      }
     }
-  }
-</style>
+  </style>
+</body>
+
+</html>
