@@ -21,13 +21,16 @@ document.addEventListener("DOMContentLoaded", function () {
         display: flex;
         align-items: center;
         margin-right: 12px;
+        position: relative;
+        top: -1px;
+        left: 5px;
       }
       .telegram-icon-link {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         background-color: #000000;
         color: white;
@@ -38,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
         color: white;
       }
       .telegram-icon-link .icon--telegram {
-        width: 20px;
-        height: 20px;
+        width: 14px;
+        height: 14px;
       }
     `;
   document.head.appendChild(style);
