@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "/specialty-coffee-buco-high/",
     "/tea-buco-coffee/",
     "/kakao/",
-    "/aksesuary/"
+    "/aksesuary/",
+    "/aktsii/"
   ];
 
   // Перевірка, чи поточна сторінка дозволена
