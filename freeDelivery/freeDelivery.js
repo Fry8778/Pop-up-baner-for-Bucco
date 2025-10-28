@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!orderHeader) return;
 
-  // Створюємо контейнер для прогрес-бару
+  // Контейнер
   const progressContainer = document.createElement("div");
   progressContainer.className = "free-shipping-progress";
   progressContainer.style.cssText = `
@@ -16,8 +16,23 @@ document.addEventListener("DOMContentLoaded", function () {
     border-radius: 12px;
     font-size: 16px;
     font-weight: bold;
+    line-height: 1.18;   
+    letter-spacing: 0.03em;
     color: #000000;
   `;
+
+  // Постійний напис
+  const staticLabel = document.createElement("div");
+  staticLabel.textContent = "Безкоштовна доставка від 1200 грн";
+  staticLabel.style.cssText = `
+    font-size: 12px;    
+    font-weight: normal;
+    margin-bottom: 5px;
+    line-height: 1.18;   
+    letter-spacing: 0.03em;
+    color: #000000;
+  `;
+  progressContainer.appendChild(staticLabel);
 
   // Прогрес-бар
   const barWrap = document.createElement("div");
@@ -39,45 +54,44 @@ document.addEventListener("DOMContentLoaded", function () {
   `;
 
   barWrap.appendChild(bar);
-  progressContainer.appendChild(barWrap);
 
   // Вставляємо під блоком "Ваше замовлення"
   orderHeader.insertAdjacentElement("afterend", progressContainer);
 
-  // Функція оновлення прогресу
+  // Текст, що змінюється
+  const dynamicText = document.createElement("div");
+  dynamicText.className = "free-shipping-text";
+  dynamicText.style.marginBottom = "5px";
+  progressContainer.appendChild(dynamicText);
+
+  progressContainer.appendChild(barWrap);
+
+  // Оновлення прогресу
   const updateProgress = () => {
     const totalText = document.querySelector(".j-total-sum")?.textContent || "0";
     const total = parseFloat(totalText.replace(/[^\d\.]/g, ""));
     const percent = Math.min((total / freeShippingLimit) * 100, 100);
     bar.style.width = percent + "%";
 
-    // Очищаємо старий текст
-    const oldText = progressContainer.querySelector(".free-shipping-text");
-    if (oldText) oldText.remove();
-
-    // Додаємо новий текст
-    const text = document.createElement("div");
-    text.className = "free-shipping-text";
-    text.style.marginBottom = "5px";
-
     if (total >= freeShippingLimit) {
-      text.textContent = "✅ Ви отримали безкоштовну доставку!";
+      // Показуємо повідомлення про безкоштовну доставку
+      dynamicText.textContent = "✅ Ви отримали безкоштовну доставку!";
+      // Ховаємо постійний напис
+      staticLabel.style.display = "none";
     } else {
       const remaining = freeShippingLimit - total;
-      text.textContent = `До безкоштовної доставки залишилось ${remaining.toFixed(0)} грн`;
+      dynamicText.textContent = `До безкоштовної доставки залишилось ${remaining.toFixed(0)} грн`;
+      // Показуємо постійний напис знову
+      staticLabel.style.display = "block";
     }
-
-    // Вставляємо перед barWrap
-    progressContainer.insertBefore(text, barWrap);
   };
 
   updateProgress();
 
-  // Спостереження за змінами суми
+  // Спостерігаємо за зміною суми
   const observer = new MutationObserver(updateProgress);
   const totalNode = document.querySelector(".j-total-sum");
   if (totalNode) {
     observer.observe(totalNode, { childList: true, subtree: true });
   }
 });
-
