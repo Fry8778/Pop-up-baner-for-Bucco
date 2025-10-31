@@ -8,7 +8,7 @@
     const container = document.createElement("div");
     container.className = "free-shipping-progress";
     container.style.cssText = `
-      margin: 10px 0;
+      margin: 10px 0 0 0;
       padding: 10px 15px;
       background: rgb(255, 231, 194);
       border-radius: 8px;
@@ -77,6 +77,10 @@
         }
         .bar-pulse { animation: pulseBar 1.2s ease-in-out 1; }
         .free-shipping-big {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
           font-size: 18px !important;
           font-weight: 700 !important;
           text-align: center !important;
