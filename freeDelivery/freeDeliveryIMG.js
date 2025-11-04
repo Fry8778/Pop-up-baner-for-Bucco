@@ -92,7 +92,7 @@
           gap: 10px; /* відстань між текстом і картинкою */
         } 
         .free-shipping-text img {
-          max-width: 100px; /* стандартний розмір для десктопу */
+          max-width: 35px;
           height: auto;         
         }
         @media (max-width: 768px) {
