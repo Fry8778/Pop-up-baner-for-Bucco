@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // const pngBannerSrc = "https://i.postimg.cc/NG3H9V1R/black-Friday-30.jpg";
-  const pngBannerSrc = "https://i.postimg.cc/FRdnGRD8/black-Friday.jpg";
+  const pngBannerSrc = "https://i.postimg.cc/NG3H9V1R/black-Friday-30.jpg";
+  // const pngBannerSrc = "https://i.postimg.cc/FRdnGRD8/black-Friday.jpg";
   const targetUrl = "https://bucocoffee.com.ua/magazyn/";
 
   // Створюємо контейнер банера
   const bannerDiv = document.createElement("div");
-  bannerDiv.id = "chocolate-banner";
+  bannerDiv.id = "sale-banner";
 
   // Кнопка закриття
   const closeBtn = document.createElement("button");
-  closeBtn.id = "chocolate-banner-close";
+  closeBtn.id = "sale-banner-close";
   closeBtn.innerHTML = "&times;";
   closeBtn.title = "Закрити банер";
   closeBtn.onclick = () => bannerDiv.remove();
@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const linkElement = document.createElement("a");
   linkElement.href = targetUrl;
   linkElement.rel = "noopener noreferrer";
-  linkElement.className = "chocolate-banner__link";
+  linkElement.className = "sale-banner__link";
 
   // Картинка
   const imgElement = document.createElement("img");
   imgElement.src = pngBannerSrc;
   imgElement.alt = "Знижка 30 %";
-  imgElement.className = "chocolate-banner__image";
+  imgElement.className = "sale-banner__image";
 
   // Вкладаємо все
   linkElement.appendChild(imgElement);
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Стилі
   const style = document.createElement("style");
   style.textContent = `
-    #chocolate-banner {
+    #sale-banner {
       position: fixed;
       right: 30px;
       top: 80px;
@@ -44,9 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
       background: transparent !important;
       padding: 0;
       overflow: visible;
+      border-radius: 12px;
     }
 
-    #chocolate-banner-close {
+    #sale-banner-close {
       position: absolute;
       top: -8px;
       right: -8px;
@@ -65,11 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
       z-index: 1001;
     }
 
-    #chocolate-banner-close:hover {
+    #sale-banner-close:hover {
       background: rgba(0,0,0,0.8);
     }
 
-    .chocolate-banner__link {
+    .sale-banner__link {
       display: block;
       width: 100%;
       height: 100%;
@@ -78,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
       background: transparent !important;
     }
 
-    .chocolate-banner__image {
+    .sale-banner__image {
       width: 100%;
       height: auto;
       display: block;
@@ -88,13 +89,13 @@ document.addEventListener("DOMContentLoaded", function () {
       pointer-events: auto;
     }
 
-    .chocolate-banner__link:hover .chocolate-banner__image {
+    .sale-banner__link:hover .sale-banner__image {
       transform: translateY(-5px);
       filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35)) brightness(1.08);
     }
 
     @media (max-width: 1024px) and (min-width: 769px) {
-      #chocolate-banner {
+      #sale-banner {
         left: 20px;
         top: 130px;
         width: 160px;
@@ -102,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     @media (max-width: 768px) {
-      #chocolate-banner {
+      #sale-banner {
         left: 10px;
         top: 100px;
         width: 120px;
@@ -110,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     @media (max-width: 480px) {
-      #chocolate-banner {
+      #sale-banner {
         left: 5px;
         top: 100px;
         width: 100px;
