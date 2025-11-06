@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const pngBannerSrc = "https://i.postimg.cc/NG3H9V1R/black-Friday-30.jpg";
-  // const pngBannerSrc = "https://i.postimg.cc/FRdnGRD8/black-Friday.jpg";
+  const pngBannerSrc = "https://i.postimg.cc/gk3zTxhZ/2148337235.png";
+  // const pngBannerSrc = "https://i.postimg.cc/Ls784xqv/Sale-New.png";
+  // const pngBannerSrc = "https://i.postimg.cc/QMSMLXDQ/Sale1.png";
+  // const pngBannerSrc = "https://i.postimg.cc/76Qnm8W4/Sale.png";
+  // const pngBannerSrc = "https://i.postimg.cc/NG3H9V1R/black-Friday-30.jpg"; 
   const targetUrl = "https://bucocoffee.com.ua/magazyn/";
 
   // Створюємо контейнер банера
