@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const pngBannerSrc = "https://i.postimg.cc/gk3zTxhZ/2148337235.png";
+  const pngBannerSrc = "https://i.postimg.cc/zGHrrrhJ/buco-Sale30.png";
+  // const pngBannerSrc = "https://i.postimg.cc/gk3zTxhZ/2148337235.png";
   // const pngBannerSrc = "https://i.postimg.cc/Ls784xqv/Sale-New.png";
   // const pngBannerSrc = "https://i.postimg.cc/QMSMLXDQ/Sale1.png";
   // const pngBannerSrc = "https://i.postimg.cc/76Qnm8W4/Sale.png";
