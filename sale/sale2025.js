@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const pngBannerSrc = "https://i.postimg.cc/zGHrrrhJ/buco-Sale30.png";
+  const pngBannerSrc = "https://i.postimg.cc/jqWbJ1t5/254545252.png";
+  // const pngBannerSrc = "https://i.postimg.cc/Wz0H33NS/buco-Sale30-2.png";
+  // const pngBannerSrc = "https://i.postimg.cc/zGHrrrhJ/buco-Sale30.png";
   // const pngBannerSrc = "https://i.postimg.cc/gk3zTxhZ/2148337235.png";
   // const pngBannerSrc = "https://i.postimg.cc/Ls784xqv/Sale-New.png";
   // const pngBannerSrc = "https://i.postimg.cc/QMSMLXDQ/Sale1.png";
