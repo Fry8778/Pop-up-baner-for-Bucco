@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "/tea-buco-coffee/",
     "/kakao/",
     "/aksesuary/",
-    "/aktsii/"
+    "/aktsii/",
+    "127.0.0.1",
+    "localhost"
   ];
 
   // Перевірка, чи поточна сторінка дозволена
@@ -109,7 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .chocolate-banner__link:hover .chocolate-banner__image,
     .chocolate-banner__link:focus .chocolate-banner__image {
       transform: translateY(-5px);
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35)) brightness(1.08);
+      // filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35)) brightness(1.08);
+      filter: drop-shadow(0 8px 15px #743C1E) brightness(1.08);
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 

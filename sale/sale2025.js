@@ -98,7 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .sale-banner__link:hover .sale-banner__image {
       transform: translateY(-5px);
       // filter: drop-shadow(0 8px 20px rgba(0,0,0,0.35)) brightness(1.08);
-      filter: drop-shadow(0 10px 20px #743C1E) brightness(1.08);
+      filter: drop-shadow(0 8px 16px #743C1E) brightness(1.08);
+      transition: transform 0.3s ease, filter 0.3s ease;
     }
 
     @media (max-width: 1024px) and (min-width: 769px) {
