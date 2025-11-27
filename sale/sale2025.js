@@ -1,11 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const pngBannerSrc = "https://i.postimg.cc/jqWbJ1t5/254545252.png";
-  // const pngBannerSrc = "https://i.postimg.cc/Wz0H33NS/buco-Sale30-2.png";
-  // const pngBannerSrc = "https://i.postimg.cc/zGHrrrhJ/buco-Sale30.png";
-  // const pngBannerSrc = "https://i.postimg.cc/gk3zTxhZ/2148337235.png";
-  // const pngBannerSrc = "https://i.postimg.cc/Ls784xqv/Sale-New.png";
-  // const pngBannerSrc = "https://i.postimg.cc/QMSMLXDQ/Sale1.png";
-  // const pngBannerSrc = "https://i.postimg.cc/76Qnm8W4/Sale.png";
+  const pngBannerSrc = "https://i.postimg.cc/MHPmWWck/bucobf-04.jpg";
+  // const pngBannerSrc = "https://i.postimg.cc/jqWbJ1t5/254545252.png";
+  // const pngBannerSrc = "https://i.postimg.cc/Wz0H33NS/buco-Sale30-2.png";  
   // const pngBannerSrc = "https://i.postimg.cc/NG3H9V1R/black-Friday-30.jpg"; 
   const targetUrl = "https://bucocoffee.com.ua/magazyn/";
 
@@ -44,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
     #sale-banner {
       position: fixed;
       right: 30px;
-      top: 80px;
+      top: 140px;
       z-index: 1000;
       width: 250px;
       background: transparent !important;
@@ -104,25 +100,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     @media (max-width: 1024px) and (min-width: 769px) {
       #sale-banner {
-        left: 20px;
-        top: 130px;
+        right: 30px;
+        top: 80px;
         width: 160px;
       }
     }
 
     @media (max-width: 768px) {
       #sale-banner {
-        left: 10px;
-        top: 100px;
-        width: 120px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 45vw;
       }
     }
 
     @media (max-width: 480px) {
       #sale-banner {
-        left: 5px;
-        top: 100px;
-        width: 100px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 80vw;
       }
     }
   `;
