@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (localStorage.getItem(bannerClosedKey) === "true") return;
 
   const pngBannerSrc = "https://i.postimg.cc/MHPmWWck/bucobf-04.jpg";
+  //  const pngBannerSrc = "https://i.postimg.cc/CxypY5xq/Buco-Coffee-Sale30.png";
   const targetUrl = "https://bucocoffee.com.ua/magazyn/";
 
   // Створюємо контейнер банера
