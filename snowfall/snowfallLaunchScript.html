@@ -10,29 +10,32 @@
 
 
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/snowfallMobileToDesktop.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/snowfallFromMobileToDesktop.js"></script>
 <script>
   $(document).ready(function() {    
     $.snowfall('body', {
-      flakeCount: 50, // Общее количество снежинок
-      minSize: 7,     // Минимальный размер снежинки
-      maxSize: 15,    // Максимальный размер снежинки
-      round: 4        // Радиус округления снежинки
+      flakeCount: 10, // Загальна кількість сніжинок
+      minSize: 7,     // Мінімальний розмір сніжинки
+      maxSize: 15,    // Максимальний розмір сніжинки
+      round: 4        // Радіус заокруглення сніжинки
     });
   });
 </script>
 
 
-
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script acync src="/snowfall.js"></script>
+<script src="/snowfallDesktopOnly.js"></script>
 <script>
-setTimeout(function (argument) {
-    $(document).snowfall({flakeCount : 200, minSize:5, maxSize:20, round: 4});
-  }, 5000);
+  $(document).ready(function() {    
+    $.snowfall('body', {
+      flakeCount: 10, // Загальна кількість сніжинок
+      minSize: 7,     // Мінімальний розмір сніжинки
+      maxSize: 15,    // Максимальний розмір сніжинки
+      round: 4        // Радіус заокруглення сніжинки
+    });
+  });
 </script> -->
-
 
 </body>
 </html>
