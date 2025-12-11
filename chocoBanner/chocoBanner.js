@@ -63,7 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
       width: 170px;
       background: transparent !important;
       padding: 0;
-      overflow: visible;
+      overflow: visible;     
+      pointer-events: none;
+    }
+
+    #chocolate-banner a,
+    #chocolate-banner img,
+    #chocolate-banner-close {
+      pointer-events: auto;
     }
 
 
