@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <p style="text-align: center;">
+        <span style="font-size:12px;">
+            <a href="/content/uploads/files/poltika-konfdencynost.pdf" style="color:#000000;">
+                Політика конфіденційності
+            </a>
+        </span>
+    </p>
+    <p style="text-align: center;">&nbsp;</p>
+    <p style="text-align: center;">&nbsp;</p>
+
+    <!-- АНАЛІТИКА Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RLV01WGNXC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-RLV01WGNXC');
+    </script>
+
+    <!-- jQuery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- КАСТОМНІ СКРИПТИ  -->
+    <script src="/socialHeaderIcons.js" defer></script>
+    <script src="/telegramBotFooter.js" defer></script>
+    <script src="/freeDeliveryIMG1500.js" defer></script>
+    <script src="/chocoBanner.js" defer></script>
+    <script src="/snowfallFromMobileToDesktop.js" defer></script>
+
+    <!-- ІНІЦІАЛІЗАЦІЯ snowfall  -->
+    <script>
+        $(function () {
+            if (typeof $.snowfall === 'function') {
+                $.snowfall('body', {
+                    flakeCount: 10,
+                    minSize: 7,
+                    maxSize: 15,
+                    round: 4
+                });
+            }
+        });
+    </script>
+
+
+
+    <!-- Заголовок партнерів -->
+    <script>
+        function generate_title_parners() {
+            let block_brands;
+
+            if (document.querySelector('.brands')) {
+                block_brands = document.querySelector('.brands');
+            }
+
+            if (document.querySelector('.frontBrands')) {
+                block_brands = document.querySelector('.frontBrands');
+            }
+
+
+            let text = document.createElement('h2');
+            let lang = document.querySelector('html').lang;
+            text.classList.add('title_block_partners-nb');
+            text.style.textAlign = 'center';
+            text.style.background = '#1b4281';
+            text.style.width = 'max-content';
+            text.style.margin = 'auto';
+            text.style.padding = '10px';
+            text.style.color = '#fff';
+            text.style.textTransform = 'uppercase';
+            text.style.borderRadius = '50px';
+
+
+            if (window.innerWidth < 900) {
+                text.style.fontSize = '13px';
+            } else {
+                text.style.fontSize = '24px';
+            }
+
+            if (lang === 'uk') {
+                text.innerText = 'Зустрічай нас в магазинах партнерів';
+            } else {
+                text.innerText = 'Meet us in our partner stores';
+            }
+
+            block_brands.insertBefore(text, block_brands.firstChild);
+        }
+        generate_title_parners();
+    </script>
+
+
+
+
+</body>
+
+</html>
