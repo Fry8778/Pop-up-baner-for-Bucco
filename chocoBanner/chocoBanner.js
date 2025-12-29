@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
       position: fixed;
       right: 30px;
       top: 80px;
-      z-index: 1000;
+      z-index: 500;
       width: 170px;
       background: transparent !important;
       padding: 0;

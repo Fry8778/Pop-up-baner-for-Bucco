@@ -85,7 +85,7 @@
             height: `${size}px`,
             pointerEvents: "none",
             borderRadius: `${settings.round}px`,
-            zIndex: "9999",
+            zIndex: "1",
             willChange: "transform",
           })
           .appendTo(this);
