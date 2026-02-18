@@ -1,0 +1,314 @@
+(function () {
+  if (localStorage.getItem("fortune2026")) return;
+
+  const wheelText = [
+    "Нові гроші",
+    "Зустріч",
+    "Бажання",
+    "Подорожі",
+    "Кар'єра",
+    "Подарунок",
+    "Новий етап",
+    "Удача",
+  ];
+  const fullPredictions = [
+    "Новий рік принесе тобі додаткові джерела доходу 💰",
+    "У Новому Році чекай на важливу зустріч, яка змінить життя ❤️",
+    "У Новому Році твоє давнє бажжання здійсниться✨",
+    "У Новому Році натебе чекають цікаві подорожі ✈️",
+    "У Новому Році на тебе чекає кар'єрний прорив 🚀",
+    "Доля підготує тобі приємний подарунок у Новому Році 🎁",
+    "Рік Вогняного Червоного Коня відкриє новий етап у твоєму житті 🌱",
+    "У рік Вогняного Червоного Коня на тебе чекає велика удача 🍀",
+  ];
+
+  let spinning = false;
+  let currentRotation = 0;
+  let lastSector = -1;
+  let confettiAnimation = null;
+
+  // ===== CREATE MODAL =====
+  const fortuneModal = document.createElement("div");
+  fortuneModal.id = "fortuneModal";
+  fortuneModal.className = "fortune-modal";
+  fortuneModal.innerHTML = `
+        <div class="fortune-box">
+            <button class="close-btn" id="closeFortune">✕</button>
+            <h2>Вітаємо з Новим Роком за китайський каледарем!</h2>
+            <p>Дізнайся про 🎁 Вогняного Червонного🐎</p>
+            <div class="wheel-wrapper">
+                <canvas id="fortuneWheel" width="320" height="320"></canvas>
+                <div class="pointer"></div>
+            </div>
+            <button id="spinBtn">Крутити колесо</button>
+        </div>
+    `;
+  document.body.appendChild(fortuneModal);
+
+  const fortuneResult = document.createElement("div");
+  fortuneResult.id = "fortuneResult";
+  fortuneResult.className = "fortune-result";
+  fortuneResult.innerHTML = `
+        <div class="fortune-result-box">
+            <div id="resultText"></div>
+            <button id="closeResult">Закрити</button>
+        </div>
+    `;
+  document.body.appendChild(fortuneResult);
+
+  const confettiCanvas = document.createElement("canvas");
+  confettiCanvas.id = "confettiCanvas";
+  document.body.appendChild(confettiCanvas);
+
+  const wheelSound = document.createElement("audio");
+  wheelSound.id = "wheelSound";
+  wheelSound.preload = "auto";
+  wheelSound.innerHTML = `<source src="https://cdn.jsdelivr.net/gh/terkelg/experiments/audio/roulette.mp3" type="audio/mpeg">`;
+  document.body.appendChild(wheelSound);
+
+  // ===== ADD STYLES =====
+  const style = document.createElement("style");
+  style.innerHTML = `
+        .fortune-modal {
+            position: fixed; inset: 0;
+            background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('https://i.postimg.cc/28xsKD6f/7136-2x.png');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 999999; font-family: sans-serif;
+        }
+        .fortune-box {
+            position: relative; background: linear-gradient(135deg,#cda987,#a9825f);
+            color: #fff; padding: 25px; border-radius: 14px; text-align: center;
+            max-width: 360px; width: 95%; box-shadow: 0 20px 60px rgba(0,0,0,.4);
+        }
+        .fortune-box h2 { font-size: 24px; font-weight:700; margin-bottom:10px; line-height:1.3;}
+        .fortune-box p { font-size:14px; line-height:1.4; margin-bottom:20px; }
+        .close-btn { position:absolute; top:10px; right:12px; border:0; background:none; font-size:22px; cursor:pointer; color:#555; }
+        .wheel-wrapper { position:relative; margin:20px auto; width:320px; }
+        .pointer { width:0; height:0; border-left:14px solid transparent; border-right:14px solid transparent; border-top:26px solid #d62828; position:absolute; left:50%; top:-6px; transform:translateX(-50%); transition: transform 0.08s ease-out; }
+        #spinBtn { border:0; color:#fff; padding:12px 20px; border-radius:8px; font-size:16px; cursor:pointer; background: linear-gradient(145deg,#f77f00,#d62828); box-shadow:0 4px 12px rgba(0,0,0,.25); transition: transform 0.2s ease; }
+        #spinBtn:hover, #closeResult:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.35); }
+        .fortune-result { position:fixed; inset:0; background: rgba(0,0,0,.92); display:none; align-items:center; justify-content:center; z-index:1000000; color:#fff; text-align:center; }
+        .fortune-result-box { animation: pop .5s ease; max-width:700px; padding:30px; }
+        #resultText { font-size:42px; font-weight:900; line-height:1.2; margin-bottom:25px; text-transform:uppercase; }
+        #closeResult { border:0; color:#fff; padding:12px 20px; border-radius:8px; font-size:16px; cursor:pointer; background: linear-gradient(145deg,#f77f00,#d62828); box-shadow:0 4px 12px rgba(0,0,0,.25); transition: transform 0.2s ease; }
+        #confettiCanvas { position:fixed; inset:0; pointer-events:none; z-index:1000001; }
+        @keyframes pop { from {transform:scale(.6); opacity:0;} to {transform:scale(1); opacity:1;} }
+        @media (max-width:480px) {
+            .fortune-modal { align-items:center; justify-content:center; padding:12px; }
+            .fortune-box { width:70vw; max-width:70vw; padding:20px 14px 24px; margin:auto; }
+            .wheel-wrapper { width:100%; max-width:240px; margin:16px auto; }
+            #fortuneWheel { width:100% !important; height:auto !important; }
+            .fortune-box h2 { font-size:18px; line-height:1.25; }
+            .fortune-box p { font-size:13px; margin-bottom:14px; }
+            #spinBtn { width:100%; padding:12px; font-size:15px; }
+        }
+    `;
+  document.head.appendChild(style);
+
+  // ===== CANVAS WHEEL =====
+  const canvas = document.getElementById("fortuneWheel");
+  const ctx = canvas.getContext("2d");
+  const size = canvas.width;
+  const center = size / 2;
+  const segments = wheelText.length;
+  const angle = (2 * Math.PI) / segments;
+
+  function wrapText(ctx, text, maxWidth) {
+    const words = text.split(" ");
+    let lines = [],
+      line = "";
+    for (let n = 0; n < words.length; n++) {
+      const test = line + words[n] + " ";
+      if (ctx.measureText(test).width > maxWidth && n > 0) {
+        lines.push(line);
+        line = words[n] + " ";
+      } else line = test;
+    }
+    lines.push(line);
+    return lines;
+  }
+
+  function drawWheel(rot = 0) {
+    ctx.clearRect(0, 0, size, size);
+    for (let i = 0; i < segments; i++) {
+      const start = rot + i * angle,
+        end = rot + (i + 1) * angle;
+      ctx.beginPath();
+      ctx.moveTo(center, center);
+      ctx.arc(center, center, center - 5, start, end);
+      ctx.closePath();
+      const grad = ctx.createRadialGradient(
+        center,
+        center,
+        20,
+        center,
+        center,
+        center,
+      );
+      if (i % 2) {
+        grad.addColorStop(0, "#ff6b6b");
+        grad.addColorStop(0.5, "#e03131");
+        grad.addColorStop(1, "#8b0000");
+      } else {
+        grad.addColorStop(0, "#ffd166");
+        grad.addColorStop(0.5, "#f77f00");
+        grad.addColorStop(1, "#a94e00");
+      }
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.save();
+      ctx.translate(center, center);
+      const textAngle = start + angle / 2;
+      ctx.rotate(textAngle);
+      const textRadius = center - 60;
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 14px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const lines = wrapText(ctx, wheelText[i], 100);
+      const lineHeight = 18;
+      const startY = -((lines.length - 1) * lineHeight) / 2;
+      lines.forEach((line, index) =>
+        ctx.fillText(line, textRadius, startY + index * lineHeight),
+      );
+      ctx.restore();
+    }
+    ctx.beginPath();
+    const shine = ctx.createRadialGradient(
+      center - 5,
+      center - 5,
+      2,
+      center,
+      center,
+      15,
+    );
+    shine.addColorStop(0, "rgba(255,255,255,0.35)");
+    shine.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = shine;
+    ctx.fill();
+    ctx.strokeStyle = "#e11";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
+
+  drawWheel();
+
+  function getSegmentIndex(rotation) {
+    const pointerAngle = -Math.PI / 2;
+    let angleAtPointer = (pointerAngle - rotation) % (2 * Math.PI);
+    if (angleAtPointer < 0) angleAtPointer += 2 * Math.PI;
+    return Math.floor(angleAtPointer / angle);
+  }
+
+  // ===== SPIN =====
+  document.getElementById("spinBtn").onclick = () => {
+    if (spinning) return;
+    spinning = true;
+    wheelSound.currentTime = 0;
+    wheelSound.play();
+    const targetIndex = Math.floor(Math.random() * segments);
+    const targetAngle = targetIndex * angle + angle / 2 - Math.PI / 2;
+    const spins = 6 + Math.random() * 2;
+    let totalRotation = 2 * Math.PI * spins + targetAngle - currentRotation;
+    while (totalRotation < 2 * Math.PI) totalRotation += 2 * Math.PI;
+    const start = performance.now();
+    const startRotation = currentRotation;
+
+    function animate(time) {
+      const duration = 4200;
+      let t = Math.min((time - start) / duration, 1);
+      let ease;
+      if (t < 0.3) ease = 1.5 * t * t;
+      else ease = 1 - Math.pow(1 - t, 3);
+      currentRotation = startRotation + totalRotation * ease;
+      drawWheel(currentRotation);
+
+      const sectorAngle = (2 * Math.PI) / segments;
+      const normalizedRotation = currentRotation % (2 * Math.PI);
+      const currentSector = Math.floor(normalizedRotation / sectorAngle);
+      if (currentSector !== lastSector) {
+        const pointer = document.querySelector(".pointer");
+        pointer.style.transform = "translateX(-50%) rotate(12deg)";
+        setTimeout(() => {
+          pointer.style.transform = "translateX(-50%) rotate(0deg)";
+        }, 80);
+        lastSector = currentSector;
+      }
+
+      if (t < 1) requestAnimationFrame(animate);
+      else {
+        wheelSound.pause();
+        const finalIndex = getSegmentIndex(currentRotation);
+        setTimeout(() => {
+          showResult(fullPredictions[finalIndex]);
+          launchConfetti();
+          spinning = false;
+        }, 300);
+      }
+    }
+    requestAnimationFrame(animate);
+  };
+
+  function showResult(text) {
+    document.getElementById("resultText").innerHTML = "🥁<br>" + text;
+    fortuneResult.style.display = "flex";
+    localStorage.setItem("fortune2026", text);
+  }
+
+  // ===== CONFETTI =====
+  function launchConfetti() {
+    const canvas = document.getElementById("confettiCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const pieces = [];
+    for (let i = 0; i < 220; i++) {
+      pieces.push({
+        x: Math.random() * canvas.width,
+        y: -20,
+        w: 6 + Math.random() * 8,
+        h: 10 + Math.random() * 14,
+        angle: Math.random() * 360,
+        spin: (Math.random() - 0.5) * 8,
+        speed: 2 + Math.random() * 3,
+        color: `hsl(${Math.random() * 360},90%,60%)`,
+        life: 0,
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach((p) => {
+        p.y += p.speed;
+        p.angle += p.spin;
+        p.life += 1;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.angle * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      });
+      confettiAnimation = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ===== CLOSE =====
+  function closeAll() {
+    cancelAnimationFrame(confettiAnimation);
+    const conf = document.getElementById("confettiCanvas");
+    if (conf) conf.remove();
+    const modal = document.getElementById("fortuneModal");
+    if (modal) modal.remove();
+    const result = document.getElementById("fortuneResult");
+    if (result) result.remove();
+  }
+
+  document.getElementById("closeResult").onclick = closeAll;
+  document.getElementById("closeFortune").onclick = closeAll;
+})();
