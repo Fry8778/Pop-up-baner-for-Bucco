@@ -1,25 +1,24 @@
-  (function ($) {
-    $.fn.womensDay = function (options) {
-      // Налаштування за замовчуванням
-      const settings = $.extend(
-        {
-          tulipCount: 12,
-          minSize: 20,
-          maxSize: 25,
-         
-        },
-        options
-      );
-  
-      // Адаптація для мобільних пристроїв
-      if ($(window).width() <= 768) {
-        settings.tulipCount = Math.round(settings.tulipCount * 0.5);
-        settings.minSize = 7;
-        settings.maxSize = 12;
-      }
-  
-      // SVG для повільних сердечок
-      const slowSvg = `
+(function ($) {
+  $.fn.womensDay = function (options) {
+    // Налаштування за замовчуванням
+    const settings = $.extend(
+      {
+        tulipCount: 12,
+        minSize: 20,
+        maxSize: 25,
+      },
+      options,
+    );
+
+    // Адаптація для мобільних пристроїв
+    if ($(window).width() <= 768) {
+      settings.tulipCount = Math.round(settings.tulipCount * 0.5);
+      settings.minSize = 8;
+      settings.maxSize = 20;
+    }
+
+    // SVG для повільних сердечок
+    const slowSvg = `
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32">
               <path fill="#7cb342" d="M16.332 28.692c-0.905-0.085-2.262-0.025-3.705-0.918-3.432-2.12-5.447-7.098-6.855-10.148-0.285-0.62-0.037-0.727 0.402-0.608 0.737 0.2 2.025 1.005 2.252 1.16 5.865 3.973 9.552 7.787 9.985 9.122 0.46 1.407-1.523 1.442-2.080 1.39z"/>
               <path fill="#bdcf46" d="M19.305 29.030c0-3.4-1.73-4.33-1.73-4.33-5.57-6.805-12.125-8.845-12.125-8.845l-0.063 1.36c1.428 0.052 8.842 6.742 10.87 9.582 0.788 1.102 0.938 1.875 0.938 1.875l2.11 0.358z"/>
@@ -34,9 +33,9 @@
             
             </svg>
         
-      `; 
-  
-      const fastSvg = `
+      `;
+
+    const fastSvg = `
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32">
            <path fill="#7fb241" d="M24.856 19.362a.354.354 0 0 0-.4.044c-.595.513-1.376.357-2.366.159-.864-.173-1.844-.368-2.889-.092-1.28.439-2.642 1.765-2.704 4.17-.144.127-.288.263-.432.404V13.42a.355.355 0 0 0-.71 0v6.492c-.121-.118-.242-.23-.363-.337-.062-2.263-1.347-3.512-2.579-3.934-.965-.253-1.887-.069-2.7.093-.923.184-1.653.33-2.204-.145a.355.355 0 0 0-.584.314c.284 2.225.724 4.315 2.963 5.438.464.206.948.307 1.443.307 1.08 0 2.213-.49 3.308-1.433.236.216.473.455.715.718v10.501a.355.355 0 0 0 .71 0V25.07c.265-.289.525-.55.784-.786 1.164 1.007 2.367 1.532 3.521 1.532.529 0 1.047-.109 1.546-.33 2.358-1.183 2.824-3.402 3.126-5.765a.356.356 0 0 0-.184-.358z"></path>
       <path fill="#e14b4b" d="M17.663.32a.353.353 0 0 0-.521-.052l-1.438 1.316L14.266.268a.351.351 0 0 0-.521.052c-.83 1.134-1.281 2.347-1.342 3.605a.357.357 0 0 0 .022.141c.915 2.424 1.909 3.625 3.037 3.673l.069.001c1.14 0 2.266-1.194 3.438-3.647a.347.347 0 0 0 .034-.168c-.06-1.258-.512-2.471-1.342-3.605z"></path>
@@ -44,92 +43,105 @@
       <path fill="#d03f3e" d="M20.68 1.986a.352.352 0 0 0-.497 0l-9.427 9.427a.35.35 0 0 0 0 .496c1.368 1.368 3.165 2.052 4.962 2.052s3.594-.684 4.962-2.052c1.325-1.325 2.055-3.088 2.055-4.962s-.73-3.637-2.055-4.962z"></path>
     
               </svg>
-      `;  
-  
-      let windowWidth = $(window).width();
-      let windowHeight = $(window).height();
-      const footer = $("footer");
-  
-      const updateFooterBounds = () => {
-        const footerTop = footer.offset() ? footer.offset().top : $(document).height();
-        return footerTop + footer.outerHeight();
-      };
-      let footerBottom = updateFooterBounds();
-  
-      // Оновлюємо розміри при зміні вікна
-      $(window).on("resize", function () {
-        windowWidth = $(window).width();
-        windowHeight = $(window).height();
-        footerBottom = updateFooterBounds();
-  
-        if (windowWidth <= 768) {
-          settings.tulipCount = Math.round(options.tulipCount * 0.5);
-          settings.minSize = 4;
-          settings.maxSize = 10;
-        } else {
-          settings.tulipCount = options.tulipCount;
-          settings.minSize = options.minSize;
-          settings.maxSize = options.maxSize;
+      `;
+
+    let windowWidth = $(window).width();
+    let windowHeight = $(window).height();
+    const footer = $("footer");
+
+    const updateFooterBounds = () => {
+      const footerTop = footer.offset()
+        ? footer.offset().top
+        : $(document).height();
+      return footerTop + footer.outerHeight();
+    };
+    let footerBottom = updateFooterBounds();
+
+    // Оновлюємо розміри при зміні вікна
+    $(window).on("resize", function () {
+      windowWidth = $(window).width();
+      windowHeight = $(window).height();
+      footerBottom = updateFooterBounds();
+
+      if (windowWidth <= 768) {
+        settings.tulipCount = Math.round(options.tulipCount * 0.5);
+        settings.minSize = 8;
+        settings.maxSize = 20;
+      } else {
+        settings.tulipCount = options.tulipCount;
+        settings.minSize = options.minSize;
+        settings.maxSize = options.maxSize;
+      }
+    });
+
+    for (let i = 0; i < settings.tulipCount; i++) {
+      const isFastNumber = Math.random() < 0.25; // 25% швидких сердечок
+      const x = Math.random() * windowWidth;
+      const y = Math.random() * windowHeight;
+      const size =
+        Math.random() * (settings.maxSize - settings.minSize) +
+        settings.minSize;
+      const speed = isFastNumber
+        ? (Math.random() * 1 + 1) * 1.5
+        : Math.random() * 1 + 1;
+      const amplitude = Math.random() * 30 + 10;
+
+      // Вибираємо відповідний SVG залежно від типу сердечка
+      const Number = $(isFastNumber ? fastSvg : slowSvg)
+        .css({
+          position: "fixed",
+          top: `${y}px`,
+          left: `${x}px`,
+          width: `${size}px`,
+          height: `${size}px`,
+          pointerEvents: "none",
+          borderRadius: `${settings.round}px`,
+          zIndex: "9999",
+          willChange: "transform",
+        })
+        .appendTo(this);
+
+      animateNumber(Number, size, speed, amplitude, isFastNumber);
+    }
+
+    function animateNumber(
+      Number,
+      size,
+      speed,
+      amplitude,
+      isFastNumber,
+      step = 0,
+    ) {
+      let top = parseFloat(Number.css("top"));
+      const angleSpeed = Math.random() * 0.05 + 0.01;
+
+      const animate = () => {
+        top += speed;
+        const oscillationX = Math.sin(step) * amplitude;
+        const oscillationY = Math.cos(step * 0.5) * 2;
+
+        Number.css({
+          transform: `translate(${oscillationX}px, ${top + oscillationY}px)`,
+        });
+
+        step += angleSpeed;
+
+        if (top > windowHeight) {
+          top = -size; // Перезапуск зверху
         }
-      });
-  
-      for (let i = 0; i < settings.tulipCount; i++) {
-        const isFastNumber = Math.random() < 0.25; // 25% швидких сердечок
-        const x = Math.random() * windowWidth;
-        const y = Math.random() * windowHeight;
-        const size = Math.random() * (settings.maxSize - settings.minSize) + settings.minSize;
-        const speed = isFastNumber ? (Math.random() * 1 + 1) * 1.5 : Math.random() * 1 + 1;
-        const amplitude = Math.random() * 30 + 10;
-  
-        // Вибираємо відповідний SVG залежно від типу сердечка
-        const Number = $(isFastNumber ? fastSvg : slowSvg)
-          .css({
-            position: "fixed",
-            top: `${y}px`,
-            left: `${x}px`,
-            width: `${size}px`,
-            height: `${size}px`,
-            pointerEvents: "none",
-            borderRadius: `${settings.round}px`,
-            zIndex: "9999",
-            willChange: "transform",
-          })
-          .appendTo(this);
-  
-        animateNumber(Number, size, speed, amplitude, isFastNumber);
-      }
-  
-      function animateNumber(Number, size, speed, amplitude, isFastNumber, step = 0) {
-        let top = parseFloat(Number.css("top"));
-        const angleSpeed = Math.random() * 0.05 + 0.01;
-  
-        const animate = () => {
-          top += speed;
-          const oscillationX = Math.sin(step) * amplitude;
-          const oscillationY = Math.cos(step * 0.5) * 2;
-  
-          Number.css({
-            transform: `translate(${oscillationX}px, ${top + oscillationY}px)`,
-          });
-  
-          step += angleSpeed;
-  
-          if (top > windowHeight) {
-            top = -size; // Перезапуск зверху
-          }
-  
-          if (top < footerBottom) {
-            requestAnimationFrame(animate);
-          }
-        };
-  
-        animate();
-      }
-    };
-  
-    $.womensDay = function (element, options) {
-      $(element).each(function () {
-        $(this).womensDay(options);
-      });
-    };
-  })(jQuery);
+
+        if (top < footerBottom) {
+          requestAnimationFrame(animate);
+        }
+      };
+
+      animate();
+    }
+  };
+
+  $.womensDay = function (element, options) {
+    $(element).each(function () {
+      $(this).womensDay(options);
+    });
+  };
+})(jQuery);

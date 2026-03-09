@@ -3,20 +3,20 @@
     // Настройки по умолчанию
     const settings = $.extend(
       {
-        tulipCount: 16,
+        tulipCount: 12,
         minSize: 20,
-        maxSize: 25,      
+        maxSize: 25,
       },
-      options
+      options,
     );
 
     // Адаптация для мобильных устройств
     if ($(window).width() <= 768) {
       settings.tulipCount = Math.round(settings.tulipCount * 0.5); // Уменьшение количества сердечек
-      settings.minSize = 4; // Уменьшение минимального размера сердечек
-      settings.maxSize = 10; // Уменьшение максимального размера сердечек
+      settings.minSize = 8; // Уменьшение минимального размера сердечек
+      settings.maxSize = 20; // Уменьшение максимального размера сердечек
     }
-      const svgTulip = `
+    const svgTulip = `
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32">
           <path fill="#7cb342" d="M16.332 28.692c-0.905-0.085-2.262-0.025-3.705-0.918-3.432-2.12-5.447-7.098-6.855-10.148-0.285-0.62-0.037-0.727 0.402-0.608 0.737 0.2 2.025 1.005 2.252 1.16 5.865 3.973 9.552 7.787 9.985 9.122 0.46 1.407-1.523 1.442-2.080 1.39z"/>
           <path fill="#bdcf46" d="M19.305 29.030c0-3.4-1.73-4.33-1.73-4.33-5.57-6.805-12.125-8.845-12.125-8.845l-0.063 1.36c1.428 0.052 8.842 6.742 10.87 9.582 0.788 1.102 0.938 1.875 0.938 1.875l2.11 0.358z"/>
@@ -31,13 +31,15 @@
         
         </svg>
           `;
-              
+
     let windowWidth = $(window).width();
     let windowHeight = $(window).height();
     const footer = $("footer");
 
     const updateFooterBounds = () => {
-      const footerTop = footer.offset() ? footer.offset().top : $(document).height();
+      const footerTop = footer.offset()
+        ? footer.offset().top
+        : $(document).height();
       return footerTop + footer.outerHeight();
     };
     let footerBottom = updateFooterBounds();
@@ -51,8 +53,8 @@
       // Пересчитываем настройки при изменении размера окна
       if (windowWidth <= 768) {
         settings.tulipCount = Math.round(options.tulipCount * 0.5);
-        settings.minSize = 4;
-        settings.maxSize = 10;
+        settings.minSize = 8;
+        settings.maxSize = 20;
       } else {
         settings.tulipCount = options.tulipCount;
         settings.minSize = options.minSize;
@@ -64,8 +66,12 @@
       const isFastTulip = Math.random() < 0.25; // 25% быстрых сердечек
       const x = Math.random() * windowWidth;
       const y = Math.random() * windowHeight;
-      const size = Math.random() * (settings.maxSize - settings.minSize) + settings.minSize;
-      const speed = isFastTulip ? (Math.random() * 1 + 1) * 1.5 : Math.random() * 1 + 1;
+      const size =
+        Math.random() * (settings.maxSize - settings.minSize) +
+        settings.minSize;
+      const speed = isFastTulip
+        ? (Math.random() * 1 + 1) * 1.5
+        : Math.random() * 1 + 1;
       const amplitude = Math.random() * 30 + 10;
 
       const Tulip = $(svgTulip)
@@ -85,7 +91,14 @@
       animateTulip(Tulip, size, speed, amplitude, isFastTulip);
     }
 
-    function animateTulip(Tulip, size, speed, amplitude, isFastTulip, step = 0) {
+    function animateTulip(
+      Tulip,
+      size,
+      speed,
+      amplitude,
+      isFastTulip,
+      step = 0,
+    ) {
       let top = parseFloat(Tulip.css("top"));
       const angleSpeed = Math.random() * 0.05 + 0.01;
 
