@@ -1,8 +1,6 @@
 /**
  * ☕ Buco Coffee — Кофейный експерт
  * AI-агент підбору кави для bucocoffee.com.ua
- * Версія: 1.0
- * Встановлення: вставте цей скрипт перед </body> на всіх сторінках
  */
 (function () {
   if (document.getElementById("buco-agent-root")) return;

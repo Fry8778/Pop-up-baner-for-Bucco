@@ -55,7 +55,7 @@
 
       <div class="buco-container subscribe">
         <div class="subscribe-text">
-          БУДЬ В КУРСІ НАШИХ<br>АКЦІЙ ТА НОВИНОК!
+          Будь в курсі наших акцій та новинок!
         </div>
 
         <a href="https://t.me/bucocoffee_bot" target="_blank" class="subscribe-btn">
@@ -87,14 +87,32 @@
       }
 
       
-.buco-title {
-        // font-size: 26px;
-        font-weight: 700;
-        font-size: 20px;
-        border: 0;
-        line-height: 1;
+.buco-title {        
+        // font-size: 20px;
+        // font-weight: 700;
+        // border: 0;
+        // line-height: 1;
+        // font-weight: bold;
+        // color: #7a7a7a;
+        
+        color: rgb(255, 255, 255);
+        background: rgb(27, 66, 129);
+        width: max-content;
+        
+        margin: auto;
+        padding: 10px;
+        
+        text-align: center;
+        text-transform: uppercase;
+        border-radius: 50px;
+
+        font-size: 24px;
+        font-family: "Open Sans";
+        font-style: normal;
+        // font-weight: 400;
+        font-display: fallback;
+        line-height: 1.2;
         font-weight: bold;
-        color: #7a7a7a;
       }
 
  
@@ -143,25 +161,34 @@
         line-height: 1;
         font-weight: bold;
         color: #7a7a7a;
+        text-transform: uppercase;
       }
 
-      .subscribe-btn {
-
-        font-weight: 700;
-
-        background: rgb(27, 66, 129);
-        color: white;
+      .subscribe-btn {       
+        overflow: hidden;
+        font-size: 15px; 
+        font-weight: 700;         
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+        line-height: 1.5;          
+        background-color: #0089bf;
+        background: #1b4281;              
+        box-shadow: inset 0 -2px 0 0 #10284e;
+        color: #ffffff;
+        display: inline-block;
+        text-decoration: none;          
+        border-radius: 25px;              
+        border: none;
         padding: 12px 20px;
-        text-decoration: none;
-        border-radius: 25px;
-        transition: transform 0.2s ease, opacity 0.2s ease;    
-        }
-
-        .subscribe-btn:hover {
+        width: auto;       
+      }
+          
+      .subscribe-btn:hover {       
+        position: relative;            
         color: white;
         opacity: 0.9;
-        transform: translateY(-3px); /* ← эффект подъёма */
-        }
+        top: -1px;
+        transition: all 60ms ease-in-out 30ms;
+      }
 
       @media (max-width: 768px) {
         .insta-item {
@@ -178,7 +205,7 @@
 
   function inject() {
     const allowedPaths = [
-      "/", // головна
+      "/", // головна сторінка
       "/pro-nas", // без /
       "/pro-nas/", // з /
     ];
