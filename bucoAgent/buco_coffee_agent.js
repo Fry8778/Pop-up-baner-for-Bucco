@@ -660,7 +660,6 @@ fill:#fff
 
     // POPULARITY (базова)
     if (!p.popularity) {
-      // const priceNum = parseInt((p.price || "").replace(/[^\d]/g, "")) || 0;
       const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
 
       if (priceNum <= 300) {
@@ -848,6 +847,32 @@ fill:#fff
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
 
+  function getAvailableBudgets(answers) {
+    const format = FORMAT_MAP[answers.format] || "будь-яке";
+
+    // фільтр по формату
+    const products = PRODUCTS.filter(
+      (p) => format === "будь-яке" || p.forFormat === format,
+    );
+
+    const availability = {
+      "До 300 грн": false,
+      "300–600 грн": false,
+      "Від 600 грн": false,
+      "Не важливо": true, // завжди доступно
+    };
+
+    products.forEach((p) => {
+      const price = parseInt((p.price || "").split(" ")[0]) || 0;
+
+      if (price <= 300) availability["До 300 грн"] = true;
+      if (price > 300 && price <= 600) availability["300–600 грн"] = true;
+      if (price > 600) availability["Від 600 грн"] = true;
+    });
+
+    return availability;
+  }
+
   function addAI(text, opts) {
     const label = document.createElement("div");
     label.className = "buco-label";
@@ -863,13 +888,32 @@ fill:#fff
       const wrap = document.createElement("div");
       wrap.className = "buco-opts";
       const curStep = step;
+
+      const isBudgetStep = FLOW[curStep].key === "budget";
+
+      let availability = null;
+      if (isBudgetStep) {
+        availability = getAvailableBudgets(answers);
+      }
+
       opts.forEach((o) => {
         const btn = document.createElement("button");
         btn.className = "buco-opt";
         btn.textContent = o;
+
+        // 🔥 ЛОГІКА ДЛЯ БЮДЖЕТУ
+        if (isBudgetStep && availability) {
+          if (!availability[o]) {
+            btn.disabled = true;
+            btn.style.opacity = "0.35";
+            btn.title = "Немає в наявності";
+          }
+        }
+
         btn.addEventListener("click", () => selectOpt(o, wrap, curStep));
         wrap.appendChild(btn);
       });
+
       msgsEl.appendChild(wrap);
     }
     scroll();
@@ -878,7 +922,6 @@ fill:#fff
   function addUser(text) {
     const el = document.createElement("div");
     el.className = "buco-msg buco-user";
-    // el.innerHTML = text;
     el.textContent = text;
     msgsEl.appendChild(el);
     scroll();
@@ -943,19 +986,13 @@ fill:#fff
     const budget = BUDGET_MAP[answers.budget] || { min: 0, max: 99999 };
 
     const scored = PRODUCTS.map((p) => {
-      let s = 0; // 👈 ОБОВʼЯЗКОВО ПЕРШИМ
-      // const priceNum = parseInt((p.price || "").replace(/[^\d]/g, "") || 0);
+      let s = 0;
       const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
-      // const priceNum = parseInt(p.price.split(" ")[0]);
 
       // ❗ ЖОРСТКИЙ ФІЛЬТР ФОРМАТУ
       if (format !== "будь-яке" && p.forFormat !== format) {
         return { ...p, s: -999 };
       }
-      //  Не жорсткий фільтр формату
-      // if (format !== "будь-яке" && p.forFormat !== format) {
-      //   s -= 3;
-      // }
 
       // ❗ ЖОРСТКИЙ ФІЛЬТР БЮДЖЕТУ
       if (priceNum < budget.min || priceNum > budget.max) {
@@ -988,14 +1025,6 @@ fill:#fff
         s -= 1;
       }
 
-      // Формат
-      // if (format === "будь-яке" || p.forFormat === format) {
-      //   s += 2;
-      // }
-      // if (p.forFormat === format) {
-      //   s += 5;
-      // }
-
       // Рівень
       if (p.forDev.includes(level)) {
         s += 1;
@@ -1016,42 +1045,6 @@ fill:#fff
 
       return { ...p, s };
     });
-
-    // const strict = scored.filter((p) => p.s > 0);
-
-    // const hasFormat = PRODUCTS.some(
-    //   (p) => format === "будь-яке" || p.forFormat === format,
-    // );
-
-    // const hasBudget = PRODUCTS.some((p) => {
-    //   const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
-    //   return priceNum >= budget.min && priceNum <= budget.max;
-    // });
-
-    // // ❗ ЖОРСТКИЙ STOP ЛОГІКИ
-    // if (!strict.length) {
-    //   let msg = document.createElement("div");
-    //   msg.className = "buco-msg buco-ai";
-
-    //   if (!hasFormat) {
-    //     msg.textContent = "У нас немає кави у цьому форматі ☕";
-    //   } else if (!hasBudget) {
-    //     msg.textContent = "У цьому бюджеті немає доступних варіантів ☕";
-    //   } else {
-    //     msg.textContent =
-    //       "Не знайдено точного збігу ☕ Спробуйте змінити смак або міцність";
-    //   }
-
-    //   msgsEl.appendChild(msg);
-
-    //   const restart = document.createElement("button");
-    //   restart.className = "buco-restart";
-    //   restart.textContent = "↩ Почати підбір знову";
-    //   restart.addEventListener("click", restartFlow);
-    //   msgsEl.appendChild(restart);
-
-    //   return;
-    // }
 
     // Блок перевірки
     const strict = scored.filter((p) => p.s > 0);
@@ -1088,26 +1081,13 @@ fill:#fff
       msgsEl.appendChild(restart);
       return;
     }
+
     // fallback
+    // Фільтруємо товари з позитивним скором
     let filtered = scored.filter((p) => p.s > 0);
 
-    // 1. якщо нічого — пробуємо М’ЯКИЙ фільтр (зберігаємо формат)
-    // if (!filtered.length) {
-    //   filtered = PRODUCTS.map((p) => {
-    //     const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
-    //     let s = p.popularity || 0;
-    //     if (format !== "будь-яке" && p.forFormat !== format) {
-    //       s -= 3;
-    //     }
-    //     // бюджет не блокує, тільки штраф
-    //     if (priceNum < budget.min || priceNum > budget.max) {
-    //       s -= 1;
-    //     }
-
-    //     return { ...p, s };
-    //   }).filter(Boolean);
-    // }
-
+    // Якщо скоринг нічого не дав — relaxed пошук тільки по формату + бюджету
+    // Бюджет і формат — жорсткі, не порушуємо ніколи
     if (!filtered.length) {
       filtered = PRODUCTS.filter((p) => {
         const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
@@ -1119,43 +1099,53 @@ fill:#fff
       }).map((p) => ({ ...p, s: p.popularity || 0 }));
     }
 
-    // 2. якщо все ще пусто — гарантуємо формат
+    // Якщо навіть relaxed пошук нічого не дав — реально нічого немає
     if (!filtered.length) {
-      filtered = PRODUCTS.filter(
-        (p) => format === "будь-яке" || p.forFormat === format,
-      ).map((p) => ({
-        ...p,
-        s: p.popularity || 0,
-      }));
-    }
+      const msg = document.createElement("div");
+      msg.className = "buco-msg buco-ai";
+      msg.textContent = `У нас немає ${answers.format ? answers.format.toLowerCase() : "кави"} у цьому бюджеті ☕ Спробуйте змінити бюджет.`;
+      msgsEl.appendChild(msg);
 
-    // 3. якщо навіть це пусто — fallback на все
-    if (!filtered.length) {
-      filtered = PRODUCTS.map((p) => ({
-        ...p,
-        s: p.popularity || 0,
-      }));
+      const restart = document.createElement("button");
+      restart.className = "buco-restart";
+      restart.textContent = "↩ Почати підбір знову";
+      restart.addEventListener("click", restartFlow);
+      msgsEl.appendChild(restart);
+      return;
     }
 
     let final = filtered.sort((a, b) => b.s - a.s);
-
-    // 👇 ДАЛІ ТВОЯ ЛОГІКА БЕЗ ЗМІН
     let top = [...new Map(final.map((p) => [p.name, p])).values()].slice(0, 3);
+    const originalTopLength = top.length;
 
     if (top.length < 3) {
       top = final.slice(0, 5);
     }
 
-    if (answers.taste === "Не знаю — здивуйте!") {
-      const pool = PRODUCTS.filter(
-        (p) =>
-          p.popularity >= 4 &&
-          (format === "будь-яке" || p.forFormat === format),
-      );
+    // Якщо скоринг дав мало результатів — попереджаємо юзера
+    // Підказку даємо тут, коли вже знаємо скільки реально покажемо
+    if (originalTopLength > 0 && originalTopLength < 3) {
+      const hint = document.createElement("div");
+      hint.className = "buco-msg buco-ai";
+      hint.textContent = "У цьому бюджеті небагато варіантів кави.";
+      msgsEl.appendChild(hint);
+    }
 
-      top = pool
-        .sort(() => 0.5 - Math.random()) // випадковість
-        .slice(0, 3);
+    // Блок "здивуйте" — тепер враховує бюджет і формат
+    if (answers.taste === "Не знаю — здивуйте!") {
+      const pool = PRODUCTS.filter((p) => {
+        const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+        return (
+          p.popularity >= 4 &&
+          (format === "будь-яке" || p.forFormat === format) &&
+          priceNum >= budget.min &&
+          priceNum <= budget.max
+        );
+      });
+      // Якщо є з чого вибирати — беремо рандом, інакше залишаємо top зі скорингу
+      if (pool.length) {
+        top = pool.sort(() => 0.5 - Math.random()).slice(0, 3);
+      }
     }
 
     const label = document.createElement("div");
@@ -1168,7 +1158,7 @@ fill:#fff
     intro.textContent =
       top.length > 0
         ? `Підібрав для вас ${top.length} варіанти ☕ Ось мої рекомендації:`
-        : "На жаль, не знайшов ідеального варіанту під ваші критерії. Спробуйте змінити бюджет або смак 🙂";
+        : "На жаль, не знайшов ідеального варіанту. Спробуйте змінити бюджет або смак 🙂";
     msgsEl.appendChild(intro);
 
     top.forEach((p, i) => {
