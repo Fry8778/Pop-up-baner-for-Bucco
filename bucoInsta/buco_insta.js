@@ -4,7 +4,7 @@
 
       <div class="buco-container">
         <div class="buco-header">
-          <div class="buco-title">Шукай нас в instagram</div>        
+          <div class="buco-title">Приєднуйся до нас в Instagram</div>        
         </div>
       </div>
 
@@ -59,7 +59,7 @@
         </div>
 
         <a href="https://t.me/bucocoffee_bot" target="_blank" class="subscribe-btn">
-          Підпишись на Buco бот
+          Підпишись на Buco
         </a>
       </div>
 
@@ -84,35 +84,25 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
+
+
+         text-align: center;
       }
 
       
-.buco-title {        
-        // font-size: 20px;
-        // font-weight: 700;
-        // border: 0;
-        // line-height: 1;
-        // font-weight: bold;
-        // color: #7a7a7a;
-        
-        color: rgb(255, 255, 255);
-        background: rgb(27, 66, 129);
+.buco-title {    
         width: max-content;
-        
         margin: auto;
-        padding: 10px;
-        
+        color: #fff;
+        background: #1b4281;
+        padding: 10px 10px;        
         text-align: center;
         text-transform: uppercase;
         border-radius: 50px;
-
         font-size: 24px;
-        font-family: "Open Sans";
-        font-style: normal;
-        // font-weight: 400;
-        font-display: fallback;
+        font-family: "Open Sans", sans-serif;              
         line-height: 1.2;
-        font-weight: bold;
+        font-weight: 700;
       }
 
  
@@ -180,14 +170,14 @@
         border: none;
         padding: 12px 20px;
         width: auto;       
+        transition: all 60ms ease-in-out 30ms;
       }
           
       .subscribe-btn:hover {       
         position: relative;            
         color: white;
         opacity: 0.9;
-        top: -1px;
-        transition: all 60ms ease-in-out 30ms;
+        transform: translateY(-2px);
       }
 
       @media (max-width: 768px) {
@@ -200,6 +190,84 @@
           align-items: flex-start;
         }
       }
+
+
+
+
+      /* ── ПЛАНШЕТ 769px–1024px ── */
+@media (max-width:1024px) and (min-width:769px){
+
+  .buco-title {    
+    font-size: 18px;
+    padding: 10px 12px;
+  }
+
+  .subscribe-text {
+    font-size: 16px;
+  }
+
+  .subscribe-btn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
+
+
+/* ── МОБІЛЬНИЙ портрет ── */
+@media (max-width:768px) and (orientation:portrait){
+
+  .buco-title {    
+    font-size: 14px;
+    padding: 10px 10px;
+  }
+
+  .insta-item {
+    flex: 0 0 70%;
+  }
+
+  .subscribe {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .subscribe-text {
+    font-size: 14px;
+    max-width: 60%;
+    line-height: 1.2;
+  }
+
+  .subscribe-btn {
+    font-size: 13px;    
+    padding: 8px 4px;
+    white-space: nowrap;
+  }
+}
+
+
+/* ── МОБІЛЬНИЙ ландшафт ── */
+@media (max-width:900px) and (orientation:landscape){
+
+  .buco-title {   
+    font-size: 14px;
+    padding: 10px 10px;
+  }
+
+  .subscribe {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .subscribe-text {
+    font-size: 14px;
+  }
+
+  .subscribe-btn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
     </style>
   `;
 
