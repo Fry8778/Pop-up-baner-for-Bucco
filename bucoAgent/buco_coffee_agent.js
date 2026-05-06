@@ -90,7 +90,7 @@ box-shadow:0 6px 28px rgba(61,31,13,0.45)
   align-items:center;
   gap:10px;
   padding:12px 14px;
-  background:#1a0e07;
+  background:#351007;
   flex-shrink:0;
   min-width:0; /* 🔥 важливо */
 }
@@ -176,7 +176,7 @@ box-shadow:0 6px 28px rgba(61,31,13,0.45)
   background:#fff8f0;color:#2a1506;align-self:flex-start;
   border:0.5px solid #ede0cc;border-bottom-left-radius:3px
 }
-.buco-user{background:#3d1f0d;color:#fff8f0;align-self:flex-end;border-bottom-right-radius:3px}
+.buco-user{background:#834c38;color:#fff8f0;align-self:flex-end;border-bottom-right-radius:3px}
 .buco-opts{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .buco-opt{
   background:#fff8f0;border:1px solid #c97b3a;color:#7c3c1a;
@@ -217,7 +217,11 @@ box-shadow:0 6px 28px rgba(61,31,13,0.45)
 }
 .buco-restart:hover{background:#e8a55a;color:#2a1506}
 .buco-input-row{
-  display:flex;gap:8px;padding:9px 11px;background:#1a0e07;flex-shrink:0
+  display:flex;
+  gap:8px;
+  padding:9px 11px;
+  background:#351007;
+  flex-shrink:0
 }
 .buco-input{
   flex:1;background:#fff8f0;border:0.5px solid #ede0cc;border-radius:18px;
