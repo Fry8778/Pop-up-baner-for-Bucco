@@ -313,6 +313,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["кавомашина", "гейзер", "мока", "турка"],
       forTaste: ["шоколад", "горіхи"],
+      forFormat: "мелена",
     },
     {
       name: "Мелена кава BUCO «Рецепт Італії» 200г",
@@ -324,6 +325,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["кавомашина", "гейзер", "мока", "турка"],
       forTaste: ["шоколад", "горіхи"],
+      forFormat: "мелена",
     },
     {
       name: "Мелена кава BUCO «Рецепт Бразилії» 70г",
@@ -335,6 +337,8 @@ fill:#fff
       forDev: ["новачок"],
       forEquip: ["турка", "фільтр", "french press"],
       forTaste: ["карамель", "горіхи", "вино"],
+      forFormat: "мелена",
+      forStrength: "середня",
     },
     {
       name: "Мелена кава BUCO «Рецепт Бразилії» 200г",
@@ -346,6 +350,8 @@ fill:#fff
       forDev: ["новачок"],
       forEquip: ["турка", "фільтр", "french press"],
       forTaste: ["карамель", "горіхи", "вино"],
+      forFormat: "мелена",
+      forStrength: "середня",
     },
     {
       name: "Мелена кава BUCO «Рецепт Кенії» 70г",
@@ -357,6 +363,7 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес", "french press"],
       forTaste: ["фрукти", "ягоди", "вино"],
+      forFormat: "мелена",
     },
     {
       name: "Мелена кава BUCO «Рецепт Кенії» 200г",
@@ -368,6 +375,7 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес", "french press"],
       forTaste: ["фрукти", "ягоди", "вино"],
+      forFormat: "мелена",
     },
     {
       name: "Мелена кава BUCO «Рецепт Колумбії» 200г",
@@ -379,6 +387,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["будь-яке"],
       forTaste: ["фрукти", "карамель"],
+      forFormat: "мелена",
     },
     {
       name: "Мелена кава BUCO «Рецепт Куби» 200г",
@@ -390,6 +399,7 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["кавомашина", "гейзер", "мока"],
       forTaste: ["шоколад", "горіхи"],
+      forFormat: "мелена",
     },
     {
       name: "Мелена кава BUCO «Рецепт Індії» 200г",
@@ -401,6 +411,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["кавомашина", "гейзер", "турка"],
       forTaste: ["шоколад", "горіхи"],
+      forFormat: "мелена",
     },
     {
       name: "Мелена кава BUCO «Колумбія без кофеїну» 200г",
@@ -412,6 +423,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["будь-яке"],
       forTaste: ["фрукти", "ягоди"],
+      forFormat: "мелена",
     },
 
     /* ── РОЗЧИННА КАВА ── */
@@ -425,6 +437,7 @@ fill:#fff
       forDev: ["новачок"],
       forEquip: ["будь-яке"],
       forTaste: ["шоколад", "горіхи"],
+      forFormat: "розчинна",
     },
     {
       name: "Розчинна кава BUCO «Ранкова» 120г",
@@ -436,6 +449,7 @@ fill:#fff
       forDev: ["новачок"],
       forEquip: ["будь-яке"],
       forTaste: ["шоколад", "горіхи"],
+      forFormat: "розчинна",
     },
 
     /* ── ЗЕРНОВА КАВА ── */
@@ -449,6 +463,7 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["кавомашина", "фільтр", "аеропрес"],
       forTaste: ["фрукти", "ягоди", "вино"],
+      forFormat: "зернова",
     },
     {
       name: "Зернова кава BUCO «Рецепт Бразилії» 400г",
@@ -460,6 +475,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["кавомашина", "фільтр", "french press"],
       forTaste: ["карамель", "горіхи", "вино"],
+      forFormat: "зернова",
     },
     {
       name: "Зернова кава BUCO «Рецепт Куби» 500г",
@@ -471,6 +487,7 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["кавомашина"],
       forTaste: ["шоколад", "горіхи"],
+      forFormat: "зернова",
     },
     {
       name: "Зернова кава BUCO «Рецепт Італії» 1кг",
@@ -482,6 +499,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["кавомашина", "гейзер"],
       forTaste: ["шоколад", "горіхи"],
+      forFormat: "зернова",
     },
     {
       name: "Зернова кава BUCO «Рецепт №4» 1кг",
@@ -493,6 +511,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["кавомашина", "фільтр"],
       forTaste: ["карамель", "горіхи", "вино"],
+      forFormat: "зернова",
     },
     {
       name: "Зернова кава BUCO «Рецепт №5» 1кг",
@@ -504,6 +523,7 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["кавомашина", "фільтр", "аеропрес"],
       forTaste: ["фрукти", "шоколад", "вино"],
+      forFormat: "зернова",
     },
     {
       name: "Зернова кава BUCO «Рецепт №6» 1кг",
@@ -515,6 +535,7 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес", "кавомашина"],
       forTaste: ["шоколад", "фрукти"],
+      forFormat: "зернова",
     },
     {
       name: "Зернова кава Cafeteria «Рецепт №3» 1кг",
@@ -526,6 +547,7 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["кавомашина"],
       forTaste: ["фрукти", "карамель", "вино"],
+      forFormat: "зернова",
     },
     {
       name: "Зернова кава «Колумбія без кофеїну» 200г",
@@ -537,6 +559,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["будь-яке"],
       forTaste: ["фрукти", "ягоди"],
+      forFormat: "зернова",
     },
 
     /* ── BUCO HIGH SPECIALTY ── */
@@ -550,6 +573,8 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес"],
       forTaste: ["фрукти", "ягоди"],
+      forFormat: "зернова",
+      forStrength: "легка",
     },
     {
       name: "Buco High Mexico 1кг (зернова)",
@@ -561,6 +586,8 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес", "кавомашина"],
       forTaste: ["фрукти", "ягоди"],
+      forFormat: "зернова",
+      forStrength: "легка",
     },
     {
       name: "Buco High Salvador 250г (зернова)",
@@ -572,6 +599,8 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес", "кавомашина"],
       forTaste: ["горіхи", "шоколад", "фрукти"],
+      forFormat: "зернова",
+      forStrength: "легка",
     },
     {
       name: "Buco High Salvador 1кг (зернова)",
@@ -583,6 +612,8 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес", "кавомашина"],
       forTaste: ["горіхи", "шоколад", "фрукти"],
+      forFormat: "зернова",
+      forStrength: "легка",
     },
     {
       name: "Buco High Mexico 250г (мелена)",
@@ -594,6 +625,8 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес"],
       forTaste: ["фрукти", "ягоди"],
+      forFormat: "мелена",
+      forStrength: "легка",
     },
     {
       name: "Buco High Salvador 250г (мелена)",
@@ -605,6 +638,8 @@ fill:#fff
       forDev: ["досвідчений"],
       forEquip: ["фільтр", "аеропрес"],
       forTaste: ["горіхи", "шоколад", "фрукти"],
+      forFormat: "мелена",
+      forStrength: "легка",
     },
     {
       name: "Buco High Salvador — дріп 5×10г",
@@ -616,6 +651,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["будь-яке"],
       forTaste: ["горіхи", "шоколад", "фрукти"],
+      forFormat: "дріп",
     },
     {
       name: "Buco High Mexico — дріп 5×10г",
@@ -627,6 +663,7 @@ fill:#fff
       forDev: ["новачок", "досвідчений"],
       forEquip: ["будь-яке"],
       forTaste: ["фрукти", "ягоди"],
+      forFormat: "дріп",
     },
   ];
 
@@ -664,7 +701,8 @@ fill:#fff
 
     // POPULARITY (базова)
     if (!p.popularity) {
-      const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+      // const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+      const priceNum = getPrice(p);
 
       if (priceNum <= 300) {
         p.popularity = 5; // масові хіти
@@ -787,6 +825,90 @@ fill:#fff
     Середня: "середня",
     Висока: "висока",
   };
+
+  function getPrice(p) {
+    return parseInt((p.price || "").split(" ")[0]) || 0;
+  }
+
+  // function matchesCurrentFilters(
+  //   p,
+  //   answers,
+  //   extra = {},
+  //   ignoreAdvanced = false,
+  // ) {
+  //   const format = FORMAT_MAP[extra.format || answers.format] || "будь-яке";
+
+  //   const tastes = TASTE_MAP[extra.taste || answers.taste] || ["any"];
+
+  //   const strength = STRENGTH_MAP[extra.strength || answers.strength];
+
+  //   const acidity = ACIDITY_MAP[extra.acidity || answers.acidity];
+
+  //   const equip = EQUIP_MAP[extra.equip || answers.equip] || "будь-яке";
+
+  //   const level = LEVEL_MAP[extra.level || answers.level] || null;
+
+  //   const budget = BUDGET_MAP[extra.budget || answers.budget] || {
+  //     min: 0,
+  //     max: 99999,
+  //   };
+
+  //   // const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+  //   const priceNum = getPrice(p);
+
+  //   // FORMAT
+  //   if (format !== "будь-яке" && p.forFormat !== format) {
+  //     return false;
+  //   }
+
+  //   // BUDGET
+  //   if (priceNum < budget.min || priceNum > budget.max) {
+  //     return false;
+  //   }
+
+  //   // TASTE
+  //   if (tastes[0] !== "any" && !p.forTaste?.some((t) => tastes.includes(t))) {
+  //     return false;
+  //   }
+
+  //   // // STRENGTH
+  //   // if (strength && p.forStrength !== strength) {
+  //   //   return false;
+  //   // }
+
+  //   // // ACIDITY
+  //   // if (acidity && p.forAcidity !== acidity) {
+  //   //   return false;
+  //   // }
+
+  //   // STRENGTH
+  //   if (!ignoreAdvanced && strength && p.forStrength !== strength) {
+  //     return false;
+  //   }
+
+  //   // ACIDITY
+  //   if (!ignoreAdvanced && acidity && p.forAcidity !== acidity) {
+  //     return false;
+  //   }
+
+  //   // EQUIP
+  //   if (
+  //     p.forFormat !== "дріп" &&
+  //     p.forFormat !== "розчинна" &&
+  //     equip !== "будь-яке" &&
+  //     !p.forEquip.includes(equip)
+  //   ) {
+  //     return false;
+  //   }
+
+  //   // LEVEL
+  //   if (level && !p.forDev.includes(level)) {
+  //     return false;
+  //   }
+
+  //   return true;
+  // }
+
   /* ───────────────────────────── HTML ───────────────────────────── */
   const root = document.createElement("div");
   root.id = "buco-agent-root";
@@ -849,29 +971,71 @@ fill:#fff
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
 
+  // function getAvailableBudgets(answers) {
+  //   const format = FORMAT_MAP[answers.format] || "будь-яке";
+
+  //   // фільтр по формату
+  //   const products = PRODUCTS.filter(
+  //     (p) => format === "будь-яке" || p.forFormat === format,
+  //   );
+
+  //   const availability = {
+  //     "До 300 грн": false,
+  //     "300–600 грн": false,
+  //     "Від 600 грн": false,
+  //     "Не важливо": true, // завжди доступно
+  //   };
+
+  //   products.forEach((p) => {
+  //     const price = parseInt((p.price || "").split(" ")[0]) || 0;
+
+  //     if (price <= 300) availability["До 300 грн"] = true;
+  //     if (price > 300 && price <= 600) availability["300–600 грн"] = true;
+  //     if (price > 600) availability["Від 600 грн"] = true;
+  //   });
+
+  //   return availability;
+  // }
+
+  // function getAvailableBudgets(answers) {
+  //   const availability = {
+  //     "До 300 грн": false,
+  //     "300–600 грн": false,
+  //     "Від 600 грн": false,
+  //     "Не важливо": true,
+  //   };
+
+  //   const format = FORMAT_MAP[answers.format] || "будь-яке";
+
+  //   PRODUCTS.forEach((p) => {
+  //     const price = getPrice(p);
+
+  //     // тільки формат
+  //     if (format !== "будь-яке" && p.forFormat !== format) return;
+
+  //     if (price <= 300) availability["До 300 грн"] = true;
+  //     if (price > 300 && price <= 600) availability["300–600 грн"] = true;
+  //     if (price > 600) availability["Від 600 грн"] = true;
+  //   });
+
+  //   return availability;
+  // }
+
   function getAvailableBudgets(answers) {
     const format = FORMAT_MAP[answers.format] || "будь-яке";
-
-    // фільтр по формату
-    const products = PRODUCTS.filter(
-      (p) => format === "будь-яке" || p.forFormat === format,
-    );
-
     const availability = {
       "До 300 грн": false,
       "300–600 грн": false,
       "Від 600 грн": false,
-      "Не важливо": true, // завжди доступно
+      "Не важливо": true,
     };
-
-    products.forEach((p) => {
-      const price = parseInt((p.price || "").split(" ")[0]) || 0;
-
+    PRODUCTS.forEach((p) => {
+      if (format !== "будь-яке" && p.forFormat !== format) return;
+      const price = getPrice(p);
       if (price <= 300) availability["До 300 грн"] = true;
       if (price > 300 && price <= 600) availability["300–600 грн"] = true;
       if (price > 600) availability["Від 600 грн"] = true;
     });
-
     return availability;
   }
 
@@ -989,7 +1153,8 @@ fill:#fff
 
     const scored = PRODUCTS.map((p) => {
       let s = 0;
-      const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+      // const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+      const priceNum = getPrice(p);
 
       // ❗ ЖОРСТКИЙ ФІЛЬТР ФОРМАТУ
       if (format !== "будь-яке" && p.forFormat !== format) {
@@ -1002,10 +1167,15 @@ fill:#fff
       }
 
       // Смак (пріоритет — підсилений)
+      // if (tastes[0] === "any" || p.forTaste?.some((t) => tastes.includes(t))) {
+      //   s += 5;
+      // } else if (answers.taste !== "Не знаю — здивуйте!") {
+      //   return { ...p, s: -999 }; // ❗ відсікаємо одразу
+      // }
       if (tastes[0] === "any" || p.forTaste?.some((t) => tastes.includes(t))) {
         s += 5;
       } else if (answers.taste !== "Не знаю — здивуйте!") {
-        return { ...p, s: -999 }; // ❗ відсікаємо одразу
+        s -= 3; // штраф, а не смерть
       }
 
       // Міцність
@@ -1049,7 +1219,6 @@ fill:#fff
 
       // popularity (тай-брейкер)
       s += Math.min(p.popularity || 0, 3) * 0.5;
-
       return { ...p, s };
     });
 
@@ -1066,7 +1235,8 @@ fill:#fff
       );
 
       const hasBudgetInFormat = formatProducts.some((p) => {
-        const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+        // const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+        const priceNum = getPrice(p);
         return priceNum >= budget.min && priceNum <= budget.max;
       });
 
@@ -1098,7 +1268,8 @@ fill:#fff
 
     if (!filtered.length) {
       filtered = PRODUCTS.filter((p) => {
-        const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+        // const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+        const priceNum = getPrice(p);
         return (
           (format === "будь-яке" || p.forFormat === format) &&
           priceNum >= budget.min &&
@@ -1113,6 +1284,7 @@ fill:#fff
     // if (!filtered.length) {
     //   filtered = PRODUCTS.filter((p) => {
     //     const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+    //     const priceNum = getPrice(p);
 
     //     const tasteMatch =
     //       tastes[0] === "any" || p.forTaste?.some((t) => tastes.includes(t));
@@ -1166,7 +1338,8 @@ fill:#fff
     // Блок "здивуйте" — тепер враховує бюджет і формат
     if (answers.taste === "Не знаю — здивуйте!") {
       const pool = PRODUCTS.filter((p) => {
-        const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+        // const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
+        const priceNum = getPrice(p);
         return (
           p.popularity >= 4 &&
           (format === "будь-яке" || p.forFormat === format) &&
