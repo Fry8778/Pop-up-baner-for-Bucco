@@ -830,85 +830,6 @@ fill:#fff
     return parseInt((p.price || "").split(" ")[0]) || 0;
   }
 
-  // function matchesCurrentFilters(
-  //   p,
-  //   answers,
-  //   extra = {},
-  //   ignoreAdvanced = false,
-  // ) {
-  //   const format = FORMAT_MAP[extra.format || answers.format] || "будь-яке";
-
-  //   const tastes = TASTE_MAP[extra.taste || answers.taste] || ["any"];
-
-  //   const strength = STRENGTH_MAP[extra.strength || answers.strength];
-
-  //   const acidity = ACIDITY_MAP[extra.acidity || answers.acidity];
-
-  //   const equip = EQUIP_MAP[extra.equip || answers.equip] || "будь-яке";
-
-  //   const level = LEVEL_MAP[extra.level || answers.level] || null;
-
-  //   const budget = BUDGET_MAP[extra.budget || answers.budget] || {
-  //     min: 0,
-  //     max: 99999,
-  //   };
-
-  //   // const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
-  //   const priceNum = getPrice(p);
-
-  //   // FORMAT
-  //   if (format !== "будь-яке" && p.forFormat !== format) {
-  //     return false;
-  //   }
-
-  //   // BUDGET
-  //   if (priceNum < budget.min || priceNum > budget.max) {
-  //     return false;
-  //   }
-
-  //   // TASTE
-  //   if (tastes[0] !== "any" && !p.forTaste?.some((t) => tastes.includes(t))) {
-  //     return false;
-  //   }
-
-  //   // // STRENGTH
-  //   // if (strength && p.forStrength !== strength) {
-  //   //   return false;
-  //   // }
-
-  //   // // ACIDITY
-  //   // if (acidity && p.forAcidity !== acidity) {
-  //   //   return false;
-  //   // }
-
-  //   // STRENGTH
-  //   if (!ignoreAdvanced && strength && p.forStrength !== strength) {
-  //     return false;
-  //   }
-
-  //   // ACIDITY
-  //   if (!ignoreAdvanced && acidity && p.forAcidity !== acidity) {
-  //     return false;
-  //   }
-
-  //   // EQUIP
-  //   if (
-  //     p.forFormat !== "дріп" &&
-  //     p.forFormat !== "розчинна" &&
-  //     equip !== "будь-яке" &&
-  //     !p.forEquip.includes(equip)
-  //   ) {
-  //     return false;
-  //   }
-
-  //   // LEVEL
-  //   if (level && !p.forDev.includes(level)) {
-  //     return false;
-  //   }
-
-  //   return true;
-  // }
-
   /* ───────────────────────────── HTML ───────────────────────────── */
   const root = document.createElement("div");
   root.id = "buco-agent-root";
@@ -970,56 +891,6 @@ fill:#fff
   function scroll() {
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
-
-  // function getAvailableBudgets(answers) {
-  //   const format = FORMAT_MAP[answers.format] || "будь-яке";
-
-  //   // фільтр по формату
-  //   const products = PRODUCTS.filter(
-  //     (p) => format === "будь-яке" || p.forFormat === format,
-  //   );
-
-  //   const availability = {
-  //     "До 300 грн": false,
-  //     "300–600 грн": false,
-  //     "Від 600 грн": false,
-  //     "Не важливо": true, // завжди доступно
-  //   };
-
-  //   products.forEach((p) => {
-  //     const price = parseInt((p.price || "").split(" ")[0]) || 0;
-
-  //     if (price <= 300) availability["До 300 грн"] = true;
-  //     if (price > 300 && price <= 600) availability["300–600 грн"] = true;
-  //     if (price > 600) availability["Від 600 грн"] = true;
-  //   });
-
-  //   return availability;
-  // }
-
-  // function getAvailableBudgets(answers) {
-  //   const availability = {
-  //     "До 300 грн": false,
-  //     "300–600 грн": false,
-  //     "Від 600 грн": false,
-  //     "Не важливо": true,
-  //   };
-
-  //   const format = FORMAT_MAP[answers.format] || "будь-яке";
-
-  //   PRODUCTS.forEach((p) => {
-  //     const price = getPrice(p);
-
-  //     // тільки формат
-  //     if (format !== "будь-яке" && p.forFormat !== format) return;
-
-  //     if (price <= 300) availability["До 300 грн"] = true;
-  //     if (price > 300 && price <= 600) availability["300–600 грн"] = true;
-  //     if (price > 600) availability["Від 600 грн"] = true;
-  //   });
-
-  //   return availability;
-  // }
 
   function getAvailableBudgets(answers) {
     const format = FORMAT_MAP[answers.format] || "будь-яке";
@@ -1166,16 +1037,11 @@ fill:#fff
         return { ...p, s: -999 };
       }
 
-      // Смак (пріоритет — підсилений)
-      // if (tastes[0] === "any" || p.forTaste?.some((t) => tastes.includes(t))) {
-      //   s += 5;
-      // } else if (answers.taste !== "Не знаю — здивуйте!") {
-      //   return { ...p, s: -999 }; // ❗ відсікаємо одразу
-      // }
+      // Смак — головний фактор, але не "вбиваємо" товар повністю
       if (tastes[0] === "any" || p.forTaste?.some((t) => tastes.includes(t))) {
         s += 5;
       } else if (answers.taste !== "Не знаю — здивуйте!") {
-        s -= 3; // штраф, а не смерть
+        s -= 3; // штраф, а не "смерть"
       }
 
       // Міцність
@@ -1190,8 +1056,8 @@ fill:#fff
         // нічого не робити
       }
 
-      // Обладнання — дріп та розчинна кава не отримують бонус за обладнання,
-      // тому що питання про обладнання для них пропускається
+      // Обладнання
+      // Дріп та розчинна кава не отримують бонус за обладнання, тому що питання про обладнання для них пропускається
       if (p.forFormat === "дріп" || p.forFormat === "розчинна") {
         // нічого не начисляємо — обладнаня не релевантне
       } else if (equip === "будь-яке") {
@@ -1265,7 +1131,6 @@ fill:#fff
 
     // Якщо скоринг нічого не дав — relaxed пошук тільки по формату + бюджету
     // Бюджет і формат — жорсткі, не порушуємо ніколи
-
     if (!filtered.length) {
       filtered = PRODUCTS.filter((p) => {
         // const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
@@ -1277,26 +1142,6 @@ fill:#fff
         );
       }).map((p) => ({ ...p, s: p.popularity || 0 }));
     }
-
-    // Якщо скоринг нічого не дав — relaxed пошук
-    // Але смак все одно поважаємо
-
-    // if (!filtered.length) {
-    //   filtered = PRODUCTS.filter((p) => {
-    //     const priceNum = parseInt((p.price || "").split(" ")[0]) || 0;
-    //     const priceNum = getPrice(p);
-
-    //     const tasteMatch =
-    //       tastes[0] === "any" || p.forTaste?.some((t) => tastes.includes(t));
-
-    //     return (
-    //       (format === "будь-яке" || p.forFormat === format) &&
-    //       priceNum >= budget.min &&
-    //       priceNum <= budget.max &&
-    //       tasteMatch
-    //     );
-    //   }).map((p) => ({ ...p, s: p.popularity || 0 }));
-    // }
 
     // Якщо навіть relaxed пошук нічого не дав — реально нічого немає
     if (!filtered.length) {
