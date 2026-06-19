@@ -29,14 +29,28 @@
       .free-shipping-wrapper {
         width:100%;
         text-align:left;
-      }
+      }      
 
       .free-shipping-progress {
-        margin:10px 0 0 0; padding:10px 15px;
+        margin: 10px 0 0 0;
+        padding: 10px 15px;
         background: rgb(255,231,194);
-        border-radius:8px; font-size:18px; color:#000;
-        transition: all 0.5s ease; position:relative; z-index:1000;
-        opacity:0; transform:translateY(10px); animation: fadeInUp 0.5s forwards;
+        border-radius: 8px;
+        font-size: 18px;
+        color: #000;
+
+        transition:
+            transform .5s ease,
+            opacity .5s ease,
+            background-color .5s ease;
+
+        position: relative;
+        z-index: 1000;
+
+        opacity: 0;
+        transform: translateY(10px);
+
+        animation: fadeInUp 0.5s forwards;
       }
 
       .free-shipping-static { font-size:14px; margin-bottom:5px; transition:opacity 0.5s; text-align:left; }

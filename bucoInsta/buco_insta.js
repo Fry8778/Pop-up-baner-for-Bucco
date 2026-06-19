@@ -13,39 +13,56 @@
         ${[
           {
             type: "img",
-            src: "https://res.cloudinary.com/dsa6bbv70/image/upload/buco1_f7erxm.webp",
+            src: "https://res.cloudinary.com/dsa6bbv70/image/upload/w_400,f_auto,q_auto:eco/buco1_f7erxm",
           },
           {
             type: "video",
-            src: "https://res.cloudinary.com/dsa6bbv70/video/upload/video1_edmddf.mp4",
+            src: "https://res.cloudinary.com/dsa6bbv70/video/upload/q_auto:low,vc_auto/video1_edmddf.mp4",
           },
           {
             type: "img",
-            src: "https://res.cloudinary.com/dsa6bbv70/image/upload/buco4_zwsuih.webp",
+            src: "https://res.cloudinary.com/dsa6bbv70/image/upload/w_400,f_auto,q_auto:eco/buco4_zwsuih",
           },
           {
             type: "video",
-            src: "https://res.cloudinary.com/dsa6bbv70/video/upload/video2_lcjmvi.mp4",
+            src: "https://res.cloudinary.com/dsa6bbv70/video/upload/q_auto:low,vc_auto/video2_lcjmvi.mp4",
           },
           {
             type: "img",
-            src: "https://res.cloudinary.com/dsa6bbv70/image/upload/buco2_kgtx1u.webp",
+            src: "https://res.cloudinary.com/dsa6bbv70/image/upload/w_400,f_auto,q_auto:eco/buco2_kgtx1u",
           },
         ]
           .map((item) => {
             if (item.type === "video") {
               return `
-              <a href="https://www.instagram.com/buco_coffee/" target="_blank" class="insta-item">
-                <video autoplay muted loop playsinline preload="none">
-                  <source src="${item.src}" type="video/mp4">
-                </video>
+              <a href="https://www.instagram.com/buco_coffee/"
+              target="_blank"
+              class="insta-item insta-video"
+              data-video="${item.src}">
+
+              <img
+              src="https://res.cloudinary.com/dsa6bbv70/image/upload/w_400,f_auto,q_auto:eco/video-preview"
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+              width="300"
+              height="300"
+              alt="Instagram відео">
+
               </a>
-            `;
+              `;
             }
 
             return `
-            <a href="https://www.instagram.com/buco_coffee/" target="_blank" class="insta-item">
-              <img src="${item.src}" loading="lazy">
+            <a href="https://www.instagram.com/buco_coffee/" target="_blank" class="insta-item">             
+              <img
+                src="${item.src}"
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+                width="300"
+                height="300"
+                alt="Instagram картинка">
             </a>
           `;
           })
@@ -134,6 +151,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 12px;
       }
 
       .subscribe {
@@ -170,7 +188,10 @@
         border: none;
         padding: 12px 20px;
         width: auto;       
-        transition: all 60ms ease-in-out 30ms;
+        transition:
+            transform .5s ease,
+            opacity .5s ease,
+            background-color .5s ease;
       }
           
       .subscribe-btn:hover {       
@@ -210,6 +231,10 @@
     font-size: 14px;
     padding: 10px 16px;
   }
+
+  .insta-item {    
+    flex: 0 0 30%;
+  }
 }
 
 
@@ -222,7 +247,7 @@
   }
 
   .insta-item {
-    flex: 0 0 70%;
+    flex: 0 0 70%;   
   }
 
   .subscribe {
@@ -267,6 +292,11 @@
     font-size: 13px;
     padding: 8px 12px;
   }
+
+  .insta-item {
+    flex: 0 0 35%;
+  }
+
 }
     </style>
   `;
@@ -279,22 +309,67 @@
     ];
 
     const currentPath = window.location.pathname;
-
     const isAllowed = allowedPaths.includes(currentPath);
-
     if (!isAllowed) return;
 
-    const target =
-      document.querySelector(".main-content") ||
-      document.querySelector("main") ||
-      document.body;
+    // const target =
+    //   document.querySelector(".main-content") ||
+    //   document.querySelector("main") ||
+    //   document.body;
 
-    target.insertAdjacentHTML("beforeend", style + instaHTML);
+    // target.insertAdjacentHTML("beforeend", style + instaHTML);
+    const socials = document.querySelector(".socials");
+    if (socials) {
+      socials.insertAdjacentHTML("beforebegin", style + instaHTML);
+    } else {
+      const target =
+        document.querySelector(".main-content") ||
+        document.querySelector("main") ||
+        document.body;
+
+      target.insertAdjacentHTML("beforeend", style + instaHTML);
+    }
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", inject);
-  } else {
-    inject();
-  }
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      inject();
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            const container = entry.target;
+
+            const videoUrl = container.dataset.video;
+
+            container.innerHTML = `
+            <video
+              muted
+              loop
+              autoplay
+              playsinline
+              preload="metadata">
+
+              <source
+                src="${videoUrl}"
+                type="video/mp4">
+
+            </video>
+          `;
+
+            observer.unobserve(container);
+          });
+        },
+        {
+          rootMargin: "200px",
+        },
+      );
+
+      document
+        .querySelectorAll(".insta-video")
+        .forEach((el) => observer.observe(el));
+    }, 2500);
+  });
 })();
