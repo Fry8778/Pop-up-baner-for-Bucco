@@ -53,7 +53,52 @@
         animation: fadeInUp 0.5s forwards;
       }
 
-      .free-shipping-static { font-size:14px; margin-bottom:5px; transition:opacity 0.5s; text-align:left; }
+    .free-shipping-notice {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(123, 79, 40, 0.2);
+    font-size: 14px;
+    line-height: 1.45;
+    color: #000;
+    text-align: left;
+}
+
+    .free-shipping-notice-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 5px;
+    }
+
+    .free-shipping-notice p {
+    margin: 3px 0;
+    }
+
+    @media(max-width:768px) {
+    .free-shipping-notice {
+        font-size: 11px;
+        line-height: 1.4;
+        margin-bottom: 7px;
+        padding-bottom: 7px;
+    }
+
+    .free-shipping-notice-title {
+        font-size: 12px;
+    }
+    }
+
+    @media(max-width:1024px) {
+    .free-shipping-notice {
+        font-size: 12px;
+    }
+    }
+
+      .free-shipping-static {
+        font-size:14px;
+        margin-bottom:5px;
+        transition:opacity 0.5s;
+        text-align:left;
+        font-weight: 700;               
+    }
 
       .free-shipping-text { 
         margin-bottom:5px; 
@@ -98,6 +143,25 @@
     const container = document.createElement("div");
     container.className = "free-shipping-progress";
 
+    // Повідомлення про графік відправлень
+    const shippingNotice = document.createElement("div");
+    shippingNotice.className = "free-shipping-notice";
+
+    shippingNotice.innerHTML = `
+  <div class="free-shipping-notice-title">
+    Шановні клієнти!
+  </div>
+
+  <p>
+    Замовлення після <strong>13:00 у п'ятницю</strong>
+    відправляємо в понеділок.
+  </p>
+
+  <p>
+    У вихідні відправлення не здійснюємо. Дякуємо за розуміння! ☕
+  </p>
+`;
+
     const staticLabel = document.createElement("div");
     staticLabel.className = "free-shipping-static";
     staticLabel.textContent = `🚚 Безкоштовна доставка від ${freeShippingLimit} грн`;
@@ -113,7 +177,7 @@
     bar.style.cssText = `background:#7b4f28; height:8px; width:0%; border-radius:10px; transition:width 0.5s;`;
 
     barWrap.appendChild(bar);
-    container.append(staticLabel, dynamicText, barWrap);
+    container.append(shippingNotice, staticLabel, dynamicText, barWrap);
 
     // 🔥 WRAPPER ДОДАНО
     const wrapper = document.createElement("div");
