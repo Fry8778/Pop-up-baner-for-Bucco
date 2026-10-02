@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Політика конфіденційності -->
+    <p style="text-align: center;">
+        <span style="font-size:12px;">
+            <a href="/content/uploads/files/poltika-konfdencynost.pdf" style="color:#000000;">
+                Політика конфіденційності
+            </a>
+        </span>
+    </p>
+    <p style="text-align: center;">&nbsp;</p>
+    <p style="text-align: center;">&nbsp;</p>
+
+    <!-- АНАЛІТИКА Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RLV01WGNXC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-RLV01WGNXC');
+    </script>
+
+    <!-- КАСТОМНІ СКРИПТИ  -->
+    <script defer src="/socialHeaderIcons.js"></script>
+    <script defer src="/telegramBotFooter.js"></script>
+    <script defer src="/freeDelivery.js"></script>
+    <script defer src="/buco_insta.js"></script>
+
+
+    <!-- Заголовок партнерів -->
+    <script>
+        function generate_title_parners() {
+            let block_brands = document.querySelector('.brands') || document.querySelector('.frontBrands');
+            if (!block_brands) return;
+
+            let text = document.createElement('h2');
+            let lang = document.documentElement.lang;
+            text.classList.add('title_block_partners-nb');
+
+            text.style.textAlign = 'center';
+            text.style.background = '#1b4281';
+            text.style.width = 'max-content';
+            text.style.margin = 'auto';
+            text.style.padding = '10px';
+            text.style.color = '#fff';
+            text.style.textTransform = 'uppercase';
+            text.style.borderRadius = '50px';
+            text.style.fontSize = window.innerWidth < 900 ? '13px' : '24px';
+
+            text.innerText = lang === 'uk'
+                ? 'Зустрічай нас в магазинах партнерів'
+                : 'Meet us in our partner stores';
+
+            block_brands.insertBefore(text, block_brands.firstChild);
+        }
+
+        generate_title_parners();
+    </script>
+
+
+    <!-- Автоматичний alt до img-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Банери
+            document.querySelectorAll('.banner-img').forEach((img, i) => {
+                const altTexts = [
+                    'BUCO Coffee — кава власного обсмаження',
+                    'BUCO Coffee — кава для дому та бізнесу',
+                    'BUCO Coffee — зернова та specialty кава'
+                ];
+
+                if (!img.alt) img.alt = altTexts[i] || 'BUCO Coffee';
+            });
+
+            // Партнери
+            document.querySelectorAll('.frontBrands-img').forEach(img => {
+                if (!img.alt) {
+                    img.alt = 'Партнер BUCO Coffee';
+                }
+            });
+
+            // Cloudinary картинки
+            document.querySelectorAll('img[src*="cloudinary"]').forEach(img => {
+                if (!img.alt) {
+                    img.alt = 'BUCO Coffee';
+                }
+            });
+
+        });
+    </script>
+
+    <!-- Доступні імена для кнопок -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            document.querySelectorAll('.search__button')
+                .forEach(el => el.setAttribute('aria-label', 'Пошук'));
+
+            document.querySelectorAll('.counter-btn.__plus')
+                .forEach(el => el.setAttribute('aria-label', 'Збільшити кількість'));
+
+            document.querySelectorAll('.counter-btn.__minus')
+                .forEach(el => el.setAttribute('aria-label', 'Зменшити кількість'));
+
+        });
+    </script>
+
+    <!-- Мітки для елементів форми -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            document.querySelectorAll('.counter-field')
+                .forEach(el => {
+                    el.setAttribute('aria-label', 'Кількість товару');
+                });
+
+        });
+    </script>
+
+    <!-- Зрозуміла назва для посилань -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            document.querySelectorAll('.banner-a')
+                .forEach(el => {
+                    el.setAttribute('aria-label', 'Перейти до пропозиції');
+                });
+
+            document.querySelectorAll('.insta-item')
+                .forEach(el => {
+                    el.setAttribute('aria-label', 'Instagram пост');
+                });
+
+            document.querySelectorAll('.favorites-view__button')
+                .forEach(el => {
+                    el.setAttribute('aria-label', 'Обране');
+                });
+
+        });
+    </script>
+
+    <!-- Input, slideCarousel, nav-btn, identical links -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            document.querySelectorAll('.sp-form-control')
+                .forEach(el => {
+                    el.setAttribute('aria-label', 'Email для підписки');
+                });
+
+            document.querySelectorAll('.slideCarousel-nav-btn.__slideLeft')
+                .forEach(el => {
+                    el.setAttribute('aria-label', 'Попередній слайд');
+                });
+
+            document.querySelectorAll('.slideCarousel-nav-btn.__slideRight')
+                .forEach(el => {
+                    el.setAttribute('aria-label', 'Наступний слайд');
+                });
+
+            document.querySelectorAll('.banner-a')
+                .forEach((el, index) => {
+                    el.setAttribute(
+                        'aria-label',
+                        'Банер пропозиції ' + (index + 1)
+                    );
+                });
+
+        });
+    </script>
+
+    <!-- Виправляє "кривий" aria-activedescendant  плагіну маски телефону -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            setTimeout(() => {
+
+                document.querySelectorAll('.iti__selected-flag')
+                    .forEach(el => {
+
+                        el.removeAttribute('aria-activedescendant');
+
+                    });
+
+            }, 1500);
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        window.AdsquizEmbedQueue = window.AdsquizEmbedQueue || [];
+        window.AdsquizEmbedQueue.push({
+            "type": "popup",
+            "domain": "bucocoffee.adsquiz.io",
+            "quizCode": "PF84Zt6ZRE",
+            "settings": {
+                "width": "auto",
+                "height": "auto",
+                "trigger_type": "delay",
+                "delay_seconds": 30,
+                "shapePopup": "rounded",
+                "sizePopup": "S",
+                "desktop": true,
+                "mobile": true,
+                "stop_showing": true,
+                "close": false
+            }
+        });
+    </script>
+
+    <script async src="https://static.sppopups.com/assets/loader.js"
+        data-chats-widget-id="cbaf5232-f005-486f-92d1-47003f59617b"></script>
+</body>
+
+</html>
