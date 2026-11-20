@@ -1,7 +1,7 @@
 (function () {
   if (window.location.pathname.includes("/checkout/complete/")) return;
 
-  const freeShippingLimit = 1500;
+  const freeShippingLimit = 2000;
   let cartProgressContainer = null;
   let cartObserver = null;
   let lastTotal = null;
@@ -218,7 +218,7 @@
       dynamicText.classList.add("free-shipping-big");
 
       bar.classList.add("bar-pulse");
-      setTimeout(() => bar.classList.remove("bar-pulse"), 1500);
+      setTimeout(() => bar.classList.remove("bar-pulse"), 2000);
     } else {
       dynamicText.textContent = `До безкоштовної доставки залишилось ${Math.ceil(freeShippingLimit - total)} грн`;
       staticLabel.style.opacity = "1";
